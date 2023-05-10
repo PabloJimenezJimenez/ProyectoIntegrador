@@ -27,19 +27,19 @@ public class Bienvenida extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnCasino = new JButton("ACCEDER AL CASINO");
-		btnCasino.setForeground(new Color(0, 0, 0));
+		btnCasino.setForeground(new Color(255, 255, 255));
 		btnCasino.setBackground(new Color(89, 116, 190));
 		btnCasino.setBounds(147, 67, 180, 21);
 		contentPane.add(btnCasino);
 		
 		JButton btnApuestas = new JButton("ACCEDER A APUESTAS");
-		btnApuestas.setForeground(new Color(0, 0, 0));
+		btnApuestas.setForeground(new Color(255, 255, 255));
 		btnApuestas.setBackground(new Color(89, 116, 190));
 		btnApuestas.setBounds(147, 125, 180, 21);
 		contentPane.add(btnApuestas);
 		
 		JButton btnEstadisticas = new JButton("ESTADISTICAS");
-		btnEstadisticas.setForeground(new Color(0, 0, 0));
+		btnEstadisticas.setForeground(new Color(255, 255, 255));
 		btnEstadisticas.setBackground(new Color(89, 116, 190));
 		btnEstadisticas.setBounds(147, 191, 180, 21);
 		contentPane.add(btnEstadisticas);
@@ -53,6 +53,13 @@ public class Bienvenida extends JFrame {
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
+		JButton btnIngresarDinero = new JButton("INGRESAR");
+		btnIngresarDinero.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		btnIngresarDinero.setBackground(new Color(89, 116, 190));
+		btnIngresarDinero.setForeground(new Color(255, 255, 255));
+		btnIngresarDinero.setBounds(357, 24, 85, 21);
+		contentPane.add(btnIngresarDinero);
+		
 		
 	}
 
@@ -60,8 +67,6 @@ public class Bienvenida extends JFrame {
 	public void setTxtUsuario(String txtUsuario) {
 		this.txtUsuario.setText(" Usuario: "+txtUsuario);
 	}
-	
-	
  }
 
 

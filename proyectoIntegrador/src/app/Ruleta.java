@@ -50,20 +50,20 @@ public class Ruleta extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		JLabel lblNewLabel = new JLabel("Numero:");
-		lblNewLabel.setBounds(253, 373, 96, 69);
+		JLabel lblNewLabel = new JLabel("Numero apostado:");
+		lblNewLabel.setBounds(193, 340, 127, 69);
 		contentPane.add(lblNewLabel);
 		
 		JLabel txtNumero = new JLabel("");
-		txtNumero.setBounds(318, 385, 79, 45);
+		txtNumero.setBounds(308, 352, 79, 45);
 		contentPane.add(txtNumero);
 		
-		JLabel lblColor = new JLabel("Color:");
-		lblColor.setBounds(431, 373, 96, 69);
+		JLabel lblColor = new JLabel("Color apostado:");
+		lblColor.setBounds(381, 340, 100, 69);
 		contentPane.add(lblColor);
 		
 		JLabel txtColor = new JLabel("");
-		txtColor.setBounds(479, 385, 79, 45);
+		txtColor.setBounds(491, 352, 79, 45);
 		contentPane.add(txtColor);
 		
 		JPanel panel = new JPanel();
@@ -523,7 +523,23 @@ public class Ruleta extends JFrame {
 		});
 		btnReiniciar.setForeground(Color.BLACK);
 		btnReiniciar.setBackground(new Color(89, 116, 190));
-		btnReiniciar.setBounds(82, 391, 100, 32);
+		btnReiniciar.setBounds(66, 391, 100, 32);
 		contentPane.add(btnReiniciar);
+		
+		JLabel lblNumeroGanador = new JLabel("Numero ganador:");
+		lblNumeroGanador.setBounds(193, 407, 127, 69);
+		contentPane.add(lblNumeroGanador);
+		
+		JLabel txtNumero_1 = new JLabel("");
+		txtNumero_1.setBounds(308, 419, 79, 45);
+		contentPane.add(txtNumero_1);
+		
+		JLabel lblColorGanador = new JLabel("Color ganador:");
+		lblColorGanador.setBounds(381, 407, 100, 69);
+		contentPane.add(lblColorGanador);
+		
+		JLabel txtColor_1 = new JLabel("");
+		txtColor_1.setBounds(491, 419, 79, 45);
+		contentPane.add(txtColor_1);
 	}
 }

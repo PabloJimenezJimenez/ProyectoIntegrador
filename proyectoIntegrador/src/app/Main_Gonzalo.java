@@ -9,13 +9,16 @@ public class Main_Gonzalo {
 		Controlador miControlador = new Controlador();
 		Modelo miModelo = new Modelo();
 		Login miVista = new Login();
+		
 		Bienvenida miBienvenida = new Bienvenida();
+		Ajustes config = new Ajustes();
 		
 		miControlador.setModelo(miModelo);
 		miControlador.setVista(miVista);
 		miControlador.setMiBienvenida(miBienvenida);
+		miControlador.setConfig(config);
 		
-		miModelo.setMilista(miVista);
+		miModelo.setMiVista(miVista);
 		
 		miVista.setModelo(miModelo);
 		miVista.setControlador(miControlador);

@@ -20,8 +20,4 @@ public class MainPablo {
 		apuestas.setVisible(false);
 	}
 	
-	public void partido() {
-		
-		
-	}
 }

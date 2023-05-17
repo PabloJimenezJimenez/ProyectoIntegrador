@@ -22,6 +22,7 @@ public class Login extends JFrame {
 	private JTextField txtUsr;
 	private JPasswordField txtPass;
 	private JLabel lblCorreccion;
+	
 	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

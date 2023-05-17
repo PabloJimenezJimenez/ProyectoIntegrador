@@ -5,6 +5,7 @@ public class Controlador {
 	private Login vista;
 	private Modelo modelo;
 	private Bienvenida miBienvenida;
+	private Ajustes config;
 	
 	
 	public void setVista(Login vista) {
@@ -29,4 +30,14 @@ public class Controlador {
 		vista.setVisible(false);
 		miBienvenida.setVisible(true);
 	}
+	
+	public void cambiarUsr() {
+		//config = new Ajustes();
+		String nombre = config.getTxtUsuario();
+		miBienvenida.setTxtUsuario(nombre);
+	}
+	public void setConfig(Ajustes config) {
+		this.config = config;
+	}
+
 }

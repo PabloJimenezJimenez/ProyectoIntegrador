@@ -43,6 +43,7 @@ public class Ruleta extends JFrame {
 	 * Create the frame.
 	 */
 	public Ruleta() {
+		setTitle("Ruleta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 841, 528);
 		contentPane = new JPanel();
@@ -509,7 +510,36 @@ public class Ruleta extends JFrame {
 		spinner.setBounds(658, 392, 63, 32);
 		contentPane.add(spinner);
 		
+		JLabel txtNumeroGanador = new JLabel("");
+		txtNumeroGanador.setBounds(308, 419, 79, 45);
+		contentPane.add(txtNumeroGanador);
+		
+		JLabel txtColorGanador = new JLabel("");
+		txtColorGanador.setBounds(491, 419, 79, 45);
+		contentPane.add(txtColorGanador);
+		
 		JButton btnApostar = new JButton("apostar");
+		btnApostar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int numero = numeroAleatorio();
+				
+					if(numero==0) {
+						txtNumeroGanador.setText(""+numero);
+						txtColorGanador.setText("Verde");
+						
+					}else if(numero==1||numero==3||numero==5||numero==7||numero==9||numero==10
+							|| numero==11||numero==13||numero==15||numero==17||numero==20||
+							numero==22||numero==24||numero==26||numero==28||numero==29||numero==31||
+							numero==33||numero==35){
+						txtNumeroGanador.setText(""+numero);
+						txtColorGanador.setText("Negro");
+						}
+					else {
+						txtNumeroGanador.setText(""+numero);
+						txtColorGanador.setText("Rojo");
+					}
+			}
+		});
 		btnApostar.setBackground(new Color(89, 116, 190));
 		btnApostar.setBounds(731, 388, 85, 39);
 		contentPane.add(btnApostar);
@@ -530,16 +560,19 @@ public class Ruleta extends JFrame {
 		lblNumeroGanador.setBounds(193, 407, 127, 69);
 		contentPane.add(lblNumeroGanador);
 		
-		JLabel txtNumero_1 = new JLabel("");
-		txtNumero_1.setBounds(308, 419, 79, 45);
-		contentPane.add(txtNumero_1);
 		
 		JLabel lblColorGanador = new JLabel("Color ganador:");
 		lblColorGanador.setBounds(381, 407, 100, 69);
 		contentPane.add(lblColorGanador);
 		
-		JLabel txtColor_1 = new JLabel("");
-		txtColor_1.setBounds(491, 419, 79, 45);
-		contentPane.add(txtColor_1);
+		
+	}
+	public static int numeroAleatorio() {
+		int aleatorio=37;
+		while(aleatorio<0 || aleatorio>36) {
+			aleatorio=(int) Math.round(Math.random()*100);
+		}
+		return aleatorio;
+		
 	}
 }

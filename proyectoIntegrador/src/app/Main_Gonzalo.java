@@ -1,7 +1,8 @@
 package app;
 
 public class Main_Gonzalo {
-
+	static PantallaApuestas pantalla = new PantallaApuestas();
+	static ApuestasDep apuestas = new ApuestasDep();
 	public static void main(String[] args) {
 		
 
@@ -20,7 +21,24 @@ public class Main_Gonzalo {
 		miVista.setControlador(miControlador);
 		
 		miVista.setVisible(true);
+		
+		
+		
+			
+			pantalla.setVisible(true);
 
+	
+
+		
+
+	}
+	public void cambiarPantalla() {
+		pantalla.setVisible(false);
+		apuestas.setVisible(true);
+	}
+	public void pantallaAnterior() {
+		pantalla.setVisible(true);
+		apuestas.setVisible(false);
 	}
 
 }

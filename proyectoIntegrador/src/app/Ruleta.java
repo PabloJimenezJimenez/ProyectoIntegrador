@@ -45,7 +45,7 @@ public class Ruleta extends JFrame {
 	public Ruleta() {
 		setTitle("Ruleta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 841, 528);
+		setBounds(100, 100, 844, 529);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -518,11 +518,18 @@ public class Ruleta extends JFrame {
 		txtColorGanador.setBounds(491, 419, 79, 45);
 		contentPane.add(txtColorGanador);
 		
+		JLabel Resultado = new JLabel("");
+		Resultado.setBounds(550, 392, 70, 32);
+		contentPane.add(Resultado);
+		
 		JButton btnApostar = new JButton("apostar");
 		btnApostar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int numero = numeroAleatorio();
-				
+				if(txtNumero.getText().equalsIgnoreCase("") && txtColor.getText().equalsIgnoreCase("")) {
+					
+				}else if(txtNumero.getText().equalsIgnoreCase("") && txtColor.getText().equalsIgnoreCase("")) {
+					int numero = numeroAleatorio();
+					
 					if(numero==0) {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Verde");
@@ -538,6 +545,42 @@ public class Ruleta extends JFrame {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Rojo");
 					}
+				
+				if(txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText()) 
+						|| txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
+					Resultado.setText("Ganador");
+				}
+				else {
+					Resultado.setText("Perdedor");
+				}
+				}else {
+					int numero = numeroAleatorio();
+					
+					if(numero==0) {
+						txtNumeroGanador.setText(""+numero);
+						txtColorGanador.setText("Verde");
+						
+					}else if(numero==1||numero==3||numero==5||numero==7||numero==9||numero==10
+							|| numero==11||numero==13||numero==15||numero==17||numero==20||
+							numero==22||numero==24||numero==26||numero==28||numero==29||numero==31||
+							numero==33||numero==35){
+						txtNumeroGanador.setText(""+numero);
+						txtColorGanador.setText("Negro");
+						}
+					else {
+						txtNumeroGanador.setText(""+numero);
+						txtColorGanador.setText("Rojo");
+					}
+				
+				if(txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText()) 
+						&& txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
+					Resultado.setText("Ganador");
+				}
+				else {
+					Resultado.setText("Perdedor");
+				}
+				}
+				
 			}
 		});
 		btnApostar.setBackground(new Color(89, 116, 190));
@@ -564,6 +607,8 @@ public class Ruleta extends JFrame {
 		JLabel lblColorGanador = new JLabel("Color ganador:");
 		lblColorGanador.setBounds(381, 407, 100, 69);
 		contentPane.add(lblColorGanador);
+		
+		
 		
 		
 	}

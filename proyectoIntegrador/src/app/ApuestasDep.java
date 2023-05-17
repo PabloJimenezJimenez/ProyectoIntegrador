@@ -18,7 +18,7 @@ import java.awt.event.KeyEvent;
 public class ApuestasDep extends JFrame {
 
 	private JPanel contentPane;
-	private MainPablo principal;
+	private Main principal;
 	private JTextField apuestaLocal;
 	private JTextField apuestaVisitante;
 	private JTextField prorroga;
@@ -27,7 +27,7 @@ public class ApuestasDep extends JFrame {
 	private JLabel cuotaProrroga;
 	private double cantApuesta;
 	public ApuestasDep() {
-		principal = new MainPablo(); 
+		principal = new Main(); 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

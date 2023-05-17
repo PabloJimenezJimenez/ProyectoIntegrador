@@ -1,6 +1,6 @@
 package app;
 
-public class Main_Gonzalo {
+public class Main {
 	static PantallaApuestas pantalla = new PantallaApuestas();
 	static ApuestasDep apuestas = new ApuestasDep();
 	public static void main(String[] args) {

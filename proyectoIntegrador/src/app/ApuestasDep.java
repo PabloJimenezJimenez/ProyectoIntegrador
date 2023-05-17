@@ -15,14 +15,6 @@ public class ApuestasDep extends JFrame {
 
 	private JPanel contentPane;
 	private MainPablo principal;
-
-	public static void main(String[] args) {
-		
-			ApuestasDep frame = new ApuestasDep();
-			frame.setVisible(true);
-				
-	}
-
 	public ApuestasDep() {
 		principal = new MainPablo(); 
 		

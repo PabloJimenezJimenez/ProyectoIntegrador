@@ -16,7 +16,6 @@ public class PantallaApuestas extends JFrame {
 
 	private JPanel contentPane;
 	private MainPablo principal;
-	private PantallaApuestas apuestas;
 	private JButton btnApuesta1;
 	private JButton btnApuesta2;
 	private JButton btnApuesta3;
@@ -26,9 +25,7 @@ public class PantallaApuestas extends JFrame {
 	private JButton btnApuesta7;
 
 	public PantallaApuestas() {
-		principal = new MainPablo();
-		apuestas = new PantallaApuestas();
-		
+		principal= new MainPablo();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

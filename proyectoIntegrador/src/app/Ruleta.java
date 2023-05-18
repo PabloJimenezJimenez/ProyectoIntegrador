@@ -510,31 +510,59 @@ public class Ruleta extends JFrame {
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(658, 392, 63, 32);
 		contentPane.add(spinner);
-		//numero que generado aleatorio que si coincide con el numero elegido
+		//numero ganador generado aleatoriamente
 		JLabel txtNumeroGanador = new JLabel("");
 		txtNumeroGanador.setBounds(308, 419, 79, 45);
 		contentPane.add(txtNumeroGanador);
-		
+		//color ganador basandose en el  numero generado aleatoriamente
 		JLabel txtColorGanador = new JLabel("");
 		txtColorGanador.setBounds(491, 419, 79, 45);
 		contentPane.add(txtColorGanador);
-		
+		//muestra si has ganado o has perdido
 		JLabel Resultado = new JLabel("");
 		Resultado.setBounds(550, 392, 70, 32);
 		contentPane.add(Resultado);
-		
+		//boton que selecciona todos los numeros pares sin ningun color
+		JButton btnPar = new JButton("Par");
+		btnPar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNumero.setText("Par");
+				txtColor.setText("");
+			}
+		});
+		btnPar.setForeground(new Color(0, 0, 0));
+		btnPar.setBackground(new Color(255, 255, 255));
+		btnPar.setBounds(248, 268, 179, 56);
+		contentPane.add(btnPar);
+		//boton que selecciona todos los numeros impares sin ningun color
+		JButton btnImpar = new JButton("Impar");
+		btnImpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNumero.setText("Impar");
+				txtColor.setText("");
+			}
+		});
+		btnImpar.setForeground(new Color(0, 0, 0));
+		btnImpar.setBackground(new Color(255, 255, 255));
+		btnImpar.setBounds(435, 268, 155, 56);
+		contentPane.add(btnImpar);
+		//boton que activa la ruleta 
 		JButton btnApostar = new JButton("apostar");
 		btnApostar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//condicion que si no hay selecionado ningun numero y ningun color
 				if(txtNumero.getText().equalsIgnoreCase("") && txtColor.getText().equalsIgnoreCase("")) {
 					
-				}else if(txtNumero.getText().equalsIgnoreCase("") && txtColor.getText().equalsIgnoreCase("")) {
+				}
+				//condicion que si solo hay un color y no un numero o vice versa
+				else if(txtNumero.getText().equalsIgnoreCase("") || txtColor.getText().equalsIgnoreCase("")) {
+					//numero que es generado aleatoriamente 
 					int numero = numeroAleatorio();
-					
+					//si el numero ganador es 0 
 					if(numero==0) {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Verde");
-						
+						//color negro
 					}else if(numero==1||numero==3||numero==5||numero==7||numero==9||numero==10
 							|| numero==11||numero==13||numero==15||numero==17||numero==20||
 							numero==22||numero==24||numero==26||numero==28||numero==29||numero==31||
@@ -542,25 +570,34 @@ public class Ruleta extends JFrame {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Negro");
 						}
+					//color rojo
 					else {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Rojo");
 					}
-				
+					//aqui se decide si has ganado o no has ganado
 				if(txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText()) 
 						|| txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
+					Resultado.setText("Ganador");
+				}
+				else if((numero%2)!=0 && txtNumero.getText().equals("Impar")) {
+					Resultado.setText("Ganador");
+				}else if((numero%2)==0 && txtNumero.getText().equals("Par")) {
 					Resultado.setText("Ganador");
 				}
 				else {
 					Resultado.setText("Perdedor");
 				}
-				}else {
+				}
+				//condicion que si hay selecionado un numero y un color
+				else {
+					//numero que es generado aleatoriamente 
 					int numero = numeroAleatorio();
-					
+					//si el numero ganador es 0 
 					if(numero==0) {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Verde");
-						
+						//color negro
 					}else if(numero==1||numero==3||numero==5||numero==7||numero==9||numero==10
 							|| numero==11||numero==13||numero==15||numero==17||numero==20||
 							numero==22||numero==24||numero==26||numero==28||numero==29||numero==31||
@@ -568,11 +605,12 @@ public class Ruleta extends JFrame {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Negro");
 						}
+					//color Rojo
 					else {
 						txtNumeroGanador.setText(""+numero);
 						txtColorGanador.setText("Rojo");
 					}
-				
+				//aqui se decide si has ganado o no has ganado
 				if(txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText()) 
 						&& txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
 					Resultado.setText("Ganador");
@@ -582,12 +620,13 @@ public class Ruleta extends JFrame {
 				}
 				}
 				
+				
 			}
 		});
 		btnApostar.setBackground(new Color(89, 116, 190));
 		btnApostar.setBounds(731, 388, 85, 39);
 		contentPane.add(btnApostar);
-		
+		//boton que limpia el nuemero y el color seleccionado
 		JButton btnReiniciar = new JButton("reiniciar");
 		btnReiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -609,34 +648,14 @@ public class Ruleta extends JFrame {
 		lblColorGanador.setBounds(381, 407, 100, 69);
 		contentPane.add(lblColorGanador);
 		
-		JButton btnPar = new JButton("Par");
-		btnPar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtNumero.setText("Par");
-				txtColor.setText("");
-			}
-		});
-		btnPar.setForeground(new Color(0, 0, 0));
-		btnPar.setBackground(new Color(255, 255, 255));
-		btnPar.setBounds(248, 268, 179, 56);
-		contentPane.add(btnPar);
-		
-		JButton btnImpar = new JButton("Impar");
-		btnImpar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtNumero.setText("Impar");
-				txtColor.setText("");
-			}
-		});
-		btnImpar.setForeground(new Color(0, 0, 0));
-		btnImpar.setBackground(new Color(255, 255, 255));
-		btnImpar.setBounds(435, 268, 155, 56);
-		contentPane.add(btnImpar);
-		
-		
-		
-		
+		//boton que te hace retroceder al menu anterior
+		JButton btnVolver = new JButton("<--");
+		btnVolver.setForeground(Color.BLACK);
+		btnVolver.setBackground(new Color(89, 116, 190));
+		btnVolver.setBounds(10, 450, 79, 32);
+		contentPane.add(btnVolver);
 	}
+	//funcion numero aletorio
 	public static int numeroAleatorio() {
 		int aleatorio=37;
 		while(aleatorio<0 || aleatorio>36) {

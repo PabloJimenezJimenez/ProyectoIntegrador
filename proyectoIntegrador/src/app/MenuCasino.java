@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.JLabel;
 
 public class MenuCasino extends JFrame {
 
@@ -31,6 +33,7 @@ public class MenuCasino extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuCasino() {
+		setTitle("Menu Casino");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 755, 433);
 		contentPane = new JPanel();
@@ -38,17 +41,19 @@ public class MenuCasino extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		//boton que te envia a la parte de la ruleta de la suerte
+		JButton btnRuleta = new JButton("Ruleta de la suerte");
+		btnRuleta.setBackground(new Color(89, 116, 190));
+		btnRuleta.setBounds(242, 186, 252, 51);
+		contentPane.add(btnRuleta);
+		//boton que te hace retroceder al menu anterior
+		JButton btnVolver = new JButton("<---");
+		btnVolver.setBackground(new Color(89, 116, 190));
+		btnVolver.setBounds(54, 285, 103, 66);
+		contentPane.add(btnVolver);
 		
-		JButton btnNewButton = new JButton("Ruleta de la suerte");
-		btnNewButton.setBounds(238, 112, 252, 51);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("tragaperras");
-		btnNewButton_1.setBounds(238, 223, 252, 45);
-		contentPane.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("<---");
-		btnNewButton_2.setBounds(54, 285, 103, 66);
-		contentPane.add(btnNewButton_2);
+		JLabel lblNewLabel = new JLabel("Menu Casino");
+		lblNewLabel.setBounds(328, 36, 145, 45);
+		contentPane.add(lblNewLabel);
 	}
 }

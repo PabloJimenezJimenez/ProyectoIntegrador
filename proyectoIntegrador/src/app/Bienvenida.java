@@ -42,6 +42,11 @@ public class Bienvenida extends JFrame {
 		contentPane.add(btnCasino);
 		
 		JButton btnApuestas = new JButton("ACCEDER A APUESTAS");
+		btnApuestas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.pantallaApuestas();
+			}
+		});
 		btnApuestas.setForeground(new Color(255, 255, 255));
 		btnApuestas.setBackground(new Color(89, 116, 190));
 		btnApuestas.setBounds(153, 155, 180, 21);
@@ -83,10 +88,7 @@ public class Bienvenida extends JFrame {
 		
 		btnAjustes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				confAjustes.setVisible(true);
-				
-				
+				controlador.ajustes();
 			}
 		});
 		btnAjustes.setForeground(new Color(255, 255, 255));
@@ -134,6 +136,11 @@ public class Bienvenida extends JFrame {
 			cantidad = Integer.parseInt(textCant.getText().trim());
 		this.saldo = saldo + cantidad;
 		this.txtSaldo.setText("SALDO: " + this.saldo + " €");
+	}
+
+
+	public void setControlador(Controlador controlador) {
+		this.controlador = controlador;
 	}
 	
 	

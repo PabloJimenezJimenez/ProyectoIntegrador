@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 public class PantallaApuestas extends JFrame {
 
 	private JPanel contentPane;
-	private Main principal;
+	private Controlador controladoor;
 	private JButton btnApuesta1;
 	private JButton btnApuesta2;
 	private JButton btnApuesta3;
@@ -23,7 +23,6 @@ public class PantallaApuestas extends JFrame {
 	private JButton btnApuesta7;
 
 	public PantallaApuestas() {
-		principal= new Main();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -37,7 +36,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta1 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.cambiarPantalla();
+				controladoor.cambiarPantalla();
 				
 				
 			}
@@ -49,7 +48,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta2 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.cambiarPantalla();
+				controladoor.cambiarPantalla();
 			}
 		});
 		btnApuesta2.setBackground(new Color(89, 116, 190));
@@ -59,7 +58,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta3 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.cambiarPantalla();
+				controladoor.cambiarPantalla();
 			}
 		});
 		btnApuesta3.setBackground(new Color(89, 116, 190));
@@ -69,7 +68,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta4 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.cambiarPantalla();
+				controladoor.cambiarPantalla();
 			}
 			
 		});
@@ -80,7 +79,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta5 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.cambiarPantalla();
+				controladoor.cambiarPantalla();
 			}
 		});
 		btnApuesta5.setBackground(new Color(89, 116, 190));
@@ -90,7 +89,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta6 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.cambiarPantalla();
+				controladoor.cambiarPantalla();
 			}
 		});
 		btnApuesta6.setBackground(new Color(89, 116, 190));
@@ -100,7 +99,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta7 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.cambiarPantalla();
+				controladoor.cambiarPantalla();
 			}
 		});
 		btnApuesta7.setBackground(new Color(89, 116, 190));
@@ -163,4 +162,9 @@ public class PantallaApuestas extends JFrame {
 	public JButton getBtnApuesta7() {
 		return btnApuesta7;
 	}
+
+	public void setControladoor(Controlador controladoor) {
+		this.controladoor = controladoor;
+	}
+	
 }

@@ -27,7 +27,6 @@ public class Ajustes extends JFrame {
 	
 	public Ajustes() {
 		
-		miContralador = new Controlador();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -76,6 +75,11 @@ public class Ajustes extends JFrame {
 
 	public JTextField getTxtContraseña() {
 		return txtContra;
+	}
+
+
+	public void setMiContralador(Controlador miContralador) {
+		this.miContralador = miContralador;
 	}
 	
 	

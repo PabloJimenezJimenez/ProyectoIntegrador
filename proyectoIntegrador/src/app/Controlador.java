@@ -6,6 +6,8 @@ public class Controlador {
 	private Modelo modelo;
 	private Bienvenida miBienvenida;
 	private Ajustes config;
+	private PantallaApuestas pantallaApuesta;
+	private ApuestasDep apuestas;
 	
 	
 	public void setVista(Login vista) {
@@ -39,5 +41,25 @@ public class Controlador {
 	public void setConfig(Ajustes config) {
 		this.config = config;
 	}
-
+	public void setPantallaApuesta(PantallaApuestas pantallaApuesta) {
+		this.pantallaApuesta = pantallaApuesta;
+	}
+	public void setApuestas(ApuestasDep apuestas) {
+		this.apuestas = apuestas;
+	}
+	public void pantallaApuestas() {
+		miBienvenida.setVisible(false);
+		pantallaApuesta.setVisible(true);
+	}
+	public void cambiarPantalla() {
+		pantallaApuesta.setVisible(false);
+		apuestas.setVisible(true);
+		
+	}
+	public void ajustes() {
+		miBienvenida.setVisible(false);
+		config.setVisible(true);
+		
+	}
+	
 }

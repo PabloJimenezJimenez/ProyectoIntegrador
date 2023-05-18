@@ -18,7 +18,7 @@ import java.awt.event.KeyEvent;
 public class ApuestasDep extends JFrame {
 
 	private JPanel contentPane;
-	private Main principal;
+	private Controlador controlador;
 	private JTextField apuestaLocal;
 	private JTextField apuestaVisitante;
 	private JTextField prorroga;
@@ -27,7 +27,6 @@ public class ApuestasDep extends JFrame {
 	private JLabel cuotaProrroga;
 	private double cantApuesta;
 	public ApuestasDep() {
-		principal = new Main(); 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -46,7 +45,7 @@ public class ApuestasDep extends JFrame {
 		btnAnt.setBackground(new Color(89, 116, 190));
 		btnAnt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				principal.pantallaAnterior();
+				//principal.pantallaAnterior();
 			}
 		});
 		btnAnt.setBounds(10, 11, 91, 23);
@@ -157,7 +156,7 @@ public class ApuestasDep extends JFrame {
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
 					System.out.println(cantApuesta);
-					principal.pantallaAnterior();
+					//principal.pantallaAnterior();
 					
 				}else if(!apuestaVisitante.getText().equals("")) {
 					double cantidad= Double.parseDouble(apuestaVisitante.getText());
@@ -166,7 +165,7 @@ public class ApuestasDep extends JFrame {
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
 					System.out.println(cantApuesta);
-					principal.pantallaAnterior();
+					//principal.pantallaAnterior();
 					
 				}else if(!prorroga.getText().equals("")) {
 					double cantidad= Double.parseDouble(prorroga.getText());
@@ -175,7 +174,7 @@ public class ApuestasDep extends JFrame {
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
 					System.out.println(cantApuesta);
-					principal.pantallaAnterior();
+					//principal.pantallaAnterior();
 					
 				}
 			}
@@ -200,4 +199,9 @@ public class ApuestasDep extends JFrame {
 		
 		
 	}
+	public void setControlador(Controlador controlador) {
+		this.controlador = controlador;
+	}
+	
+	
 }

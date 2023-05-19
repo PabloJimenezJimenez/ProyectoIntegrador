@@ -9,7 +9,8 @@ public class Main {
 		Login miVista = new Login();
 		PantallaApuestas pantalla = new PantallaApuestas();
 		ApuestasDep apuestas = new ApuestasDep();
-		
+		Ruleta ruleta= new Ruleta();
+		MenuCasino menuCasino= new MenuCasino();
 		Bienvenida miBienvenida = new Bienvenida();
 		Ajustes config = new Ajustes();
 		
@@ -20,6 +21,8 @@ public class Main {
 		miControlador.setApuestas(apuestas);
 		miControlador.setPantallaApuesta(pantalla);
 		miControlador.setConfig(config);
+		miControlador.setMenuCasino(menuCasino);
+		miControlador.setRuleta(ruleta);
 		
 		miModelo.setMiVista(miVista);
 		
@@ -33,6 +36,10 @@ public class Main {
 		apuestas.setControlador(miControlador);
 		
 		pantalla.setControladoor(miControlador);
+		
+		menuCasino.setControlador(miControlador);
+		
+		ruleta.setControlador(miControlador);
 		
 		miVista.setVisible(true);
 		

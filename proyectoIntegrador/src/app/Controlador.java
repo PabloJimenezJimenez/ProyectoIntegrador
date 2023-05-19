@@ -8,8 +8,16 @@ public class Controlador {
 	private Ajustes config;
 	private PantallaApuestas pantallaApuesta;
 	private ApuestasDep apuestas;
+	private MenuCasino menuCasino;
+	private Ruleta ruleta;
 	
 	
+	public void setMenuCasino(MenuCasino menuCasino) {
+		this.menuCasino = menuCasino;
+	}
+	public void setRuleta(Ruleta ruleta) {
+		this.ruleta = ruleta;
+	}
 	public void setVista(Login vista) {
 		this.vista = vista;
 	}
@@ -89,5 +97,31 @@ public class Controlador {
 		modelo.setContraseña(newPasswd);
 		
 	}
+	public void pantallaAnterior() {
+		apuestas.setVisible(false);
+		pantallaApuesta.setVisible(true);
+		
+	}
+	public void cambioPantallaMenuRuleta() {
+		miBienvenida.setVisible(false);
+		menuCasino.setVisible(true);
+		
+	}
+	
+	public void cambioPantallaRuleta() {
+		menuCasino.setVisible(false);
+		ruleta.setVisible(true);
+	}
+	public void menuCasinoBienvenida() {
+		menuCasino.setVisible(false);
+		miBienvenida.setVisible(true);
+		
+	}
+	public void ruletaMenuCasino() {
+		ruleta.setVisible(false);
+		menuCasino.setVisible(true);
+		
+	}
+	
 	
 }

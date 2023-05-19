@@ -45,7 +45,7 @@ public class ApuestasDep extends JFrame {
 		btnAnt.setBackground(new Color(89, 116, 190));
 		btnAnt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//principal.pantallaAnterior();
+				controlador.pantallaAnterior();
 			}
 		});
 		btnAnt.setBounds(10, 11, 91, 23);
@@ -156,7 +156,8 @@ public class ApuestasDep extends JFrame {
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
 					System.out.println(cantApuesta);
-					//principal.pantallaAnterior();
+					apuestaLocal.setText("");
+					controlador.pantallaAnterior();
 					
 				}else if(!apuestaVisitante.getText().equals("")) {
 					double cantidad= Double.parseDouble(apuestaVisitante.getText());
@@ -165,7 +166,8 @@ public class ApuestasDep extends JFrame {
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
 					System.out.println(cantApuesta);
-					//principal.pantallaAnterior();
+					apuestaVisitante.setText("");
+					controlador.pantallaAnterior();
 					
 				}else if(!prorroga.getText().equals("")) {
 					double cantidad= Double.parseDouble(prorroga.getText());
@@ -174,7 +176,8 @@ public class ApuestasDep extends JFrame {
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
 					System.out.println(cantApuesta);
-					//principal.pantallaAnterior();
+					prorroga.setText("");
+					controlador.pantallaAnterior();
 					
 				}
 			}

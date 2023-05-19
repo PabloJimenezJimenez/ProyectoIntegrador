@@ -19,11 +19,14 @@ public class Ruleta extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField cantIngresado;
+	private Controlador controlador;
+	private JTextField mensajesError;
 	public Ruleta() {
 		setTitle("Ruleta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 844, 529);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(128, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -45,6 +48,7 @@ public class Ruleta extends JFrame {
 		contentPane.add(txtColor);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(128, 128, 128));
 		panel.setBounds(83, 31, 695, 227);
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(3, 12, 0, 0));
@@ -522,81 +526,8 @@ public class Ruleta extends JFrame {
 		JButton btnApostar = new JButton("apostar");
 		btnApostar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (cantIngresado.getText().equals("0")) {
-					Resultado.setText("Introduzca una cantidad valida");
-
-				} else {
-					// condicion que si no hay selecionado ningun numero y ningun color
-					if (txtNumero.getText().equalsIgnoreCase("") && txtColor.getText().equalsIgnoreCase("")) {
-						
-						Resultado.setText("Apuesta no valida");
-						Resultado.setBackground(Color.RED);
-					}
-					// condicion que si solo hay un color y no un numero o vice versa
-					else if (txtNumero.getText().equalsIgnoreCase("") || txtColor.getText().equalsIgnoreCase("")) {
-						// numero que es generado aleatoriamente
-						int numero = numeroAleatorio();
-						// si el numero ganador es 0
-						if (numero == 0) {
-							txtNumeroGanador.setText("" + numero);
-							txtColorGanador.setText("Verde");
-							// color negro
-						} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9
-								|| numero == 10 || numero == 11 || numero == 13 || numero == 15 || numero == 17
-								|| numero == 20 || numero == 22 || numero == 24 || numero == 26 || numero == 28
-								|| numero == 29 || numero == 31 || numero == 33 || numero == 35) {
-							txtNumeroGanador.setText("" + numero);
-							txtColorGanador.setText("Negro");
-						}
-						// color rojo
-						else {
-							txtNumeroGanador.setText("" + numero);
-							txtColorGanador.setText("Rojo");
-						}
-						// aqui se decide si has ganado o no has ganado
-						if (txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText())
-								|| txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
-							Resultado.setText("Ganador");
-						} else if ((numero % 2) != 0 && txtNumero.getText().equals("Impar")) {
-							Resultado.setText("Ganador");
-						} else if ((numero % 2) == 0 && txtNumero.getText().equals("Par")) {
-							Resultado.setText("Ganador");
-						} else {
-							Resultado.setText("Perdedor");
-						}
-					}
-					// condicion que si hay selecionado un numero y un color
-					else {
-						// numero que es generado aleatoriamente
-						int numero = numeroAleatorio();
-						// si el numero ganador es 0
-						if (numero == 0) {
-							txtNumeroGanador.setText("" + numero);
-							txtColorGanador.setText("Verde");
-							// color negro
-						} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9
-								|| numero == 10 || numero == 11 || numero == 13 || numero == 15 || numero == 17
-								|| numero == 20 || numero == 22 || numero == 24 || numero == 26 || numero == 28
-								|| numero == 29 || numero == 31 || numero == 33 || numero == 35) {
-							txtNumeroGanador.setText("" + numero);
-							txtColorGanador.setText("Negro");
-						}
-						// color Rojo
-						else {
-							txtNumeroGanador.setText("" + numero);
-							txtColorGanador.setText("Rojo");
-						}
-						// aqui se decide si has ganado o no has ganado
-						if (txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText())
-								&& txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
-							Resultado.setText("Ganador");
-						} else {
-							Resultado.setText("Perdedor");
-						}
-					}
-
-				}
-			}
+				condicionBtnApostar(txtNumero, txtColor, txtNumeroGanador, txtColorGanador, Resultado);
+			}		
 		});
 		btnApostar.setBackground(new Color(89, 116, 190));
 		btnApostar.setBounds(731, 388, 85, 39);
@@ -626,6 +557,11 @@ public class Ruleta extends JFrame {
 
 		// boton que te hace retroceder al menu anterior
 		JButton btnVolver = new JButton("<--");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.ruletaMenuCasino();
+			}
+		});
 		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setBackground(new Color(89, 116, 190));
 		btnVolver.setBounds(10, 450, 79, 32);
@@ -645,6 +581,13 @@ public class Ruleta extends JFrame {
 		cantIngresado.setBounds(622, 385, 79, 39);
 		contentPane.add(cantIngresado);
 		cantIngresado.setColumns(10);
+		
+		mensajesError = new JTextField();
+		mensajesError.setEditable(false);
+		mensajesError.setBounds(506, 340, 303, 20);
+		mensajesError.setVisible(false);
+		contentPane.add(mensajesError);
+		mensajesError.setColumns(10);
 	}
 
 	// funcion numero aletorio
@@ -655,5 +598,90 @@ public class Ruleta extends JFrame {
 		}
 		return aleatorio;
 
+	}
+
+	public void setControlador(Controlador controlador) {
+		this.controlador = controlador;
+	}
+	private void condicionBtnApostar(JLabel txtNumero, JLabel txtColor, JLabel txtNumeroGanador,
+			JLabel txtColorGanador, JLabel Resultado) {
+		if (cantIngresado.getText().startsWith("0")|| cantIngresado.getText().equals("")) {
+			mensajesError.setText("Introduzca una cantidad valida");
+			mensajesError.setBackground(Color.RED);
+			mensajesError.setVisible(true);
+
+		} else {
+			mensajesError.setVisible(false);
+			// condicion que si no hay selecionado ningun numero y ningun color
+			if (txtNumero.getText().equalsIgnoreCase("") && txtColor.getText().equalsIgnoreCase("")) {
+				mensajesError.setBackground(Color.RED);
+				mensajesError.setText("Apuesta no valida");
+				mensajesError.setVisible(true);
+			}
+			// condicion que si solo hay un color y no un numero o vice versa
+			else if (txtNumero.getText().equalsIgnoreCase("") || txtColor.getText().equalsIgnoreCase("")) {
+				mensajesError.setVisible(false);
+				// numero que es generado aleatoriamente
+				int numero = numeroAleatorio();
+				// si el numero ganador es 0
+				if (numero == 0) {
+					txtNumeroGanador.setText("" + numero);
+					txtColorGanador.setText("Verde");
+					// color negro
+				} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9
+						|| numero == 10 || numero == 11 || numero == 13 || numero == 15 || numero == 17
+						|| numero == 20 || numero == 22 || numero == 24 || numero == 26 || numero == 28
+						|| numero == 29 || numero == 31 || numero == 33 || numero == 35) {
+					txtNumeroGanador.setText("" + numero);
+					txtColorGanador.setText("Negro");
+				}
+				// color rojo
+				else {
+					txtNumeroGanador.setText("" + numero);
+					txtColorGanador.setText("Rojo");
+				}
+				// aqui se decide si has ganado o no has ganado
+				if (txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText())
+						|| txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
+					Resultado.setText("Ganador");
+				} else if ((numero % 2) != 0 && txtNumero.getText().equals("Impar")) {
+					Resultado.setText("Ganador");
+				} else if ((numero % 2) == 0 && txtNumero.getText().equals("Par")) {
+					Resultado.setText("Ganador");
+				} else {
+					Resultado.setText("Perdedor");
+				}
+			}
+			// condicion que si hay selecionado un numero y un color
+			else {
+				// numero que es generado aleatoriamente
+				int numero = numeroAleatorio();
+				// si el numero ganador es 0
+				if (numero == 0) {
+					txtNumeroGanador.setText("" + numero);
+					txtColorGanador.setText("Verde");
+					// color negro
+				} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9
+						|| numero == 10 || numero == 11 || numero == 13 || numero == 15 || numero == 17
+						|| numero == 20 || numero == 22 || numero == 24 || numero == 26 || numero == 28
+						|| numero == 29 || numero == 31 || numero == 33 || numero == 35) {
+					txtNumeroGanador.setText("" + numero);
+					txtColorGanador.setText("Negro");
+				}
+				// color Rojo
+				else {
+					txtNumeroGanador.setText("" + numero);
+					txtColorGanador.setText("Rojo");
+				}
+				// aqui se decide si has ganado o no has ganado
+				if (txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText())
+						&& txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
+					Resultado.setText("Ganador");
+				} else {
+					Resultado.setText("Perdedor");
+				}
+			}
+
+		}
 	}
 }

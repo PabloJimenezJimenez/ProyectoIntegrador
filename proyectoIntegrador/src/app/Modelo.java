@@ -10,8 +10,8 @@ private Login miVista;
 	private int fallos;
 	
 	public Modelo() {
-		this.usr="Gonzalo";
-		this.contraseña="Herrera";
+		this.usr="Admin";
+		this.contraseña="1234";
 		this.fallos=0;
 	}
 

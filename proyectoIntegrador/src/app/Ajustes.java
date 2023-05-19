@@ -1,22 +1,17 @@
 package app;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class Ajustes extends JFrame {
 
 	private JPanel contentPane;

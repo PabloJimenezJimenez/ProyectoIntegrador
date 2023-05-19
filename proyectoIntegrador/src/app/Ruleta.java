@@ -1,53 +1,24 @@
 package app;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+@SuppressWarnings("serial")
 public class Ruleta extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField cantIngresado;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ruleta frame = new Ruleta();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Ruleta() {
 		setTitle("Ruleta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -557,7 +528,9 @@ public class Ruleta extends JFrame {
 				} else {
 					// condicion que si no hay selecionado ningun numero y ningun color
 					if (txtNumero.getText().equalsIgnoreCase("") && txtColor.getText().equalsIgnoreCase("")) {
-
+						
+						Resultado.setText("Apuesta no valida");
+						Resultado.setBackground(Color.RED);
 					}
 					// condicion que si solo hay un color y no un numero o vice versa
 					else if (txtNumero.getText().equalsIgnoreCase("") || txtColor.getText().equalsIgnoreCase("")) {

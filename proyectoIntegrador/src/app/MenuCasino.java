@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class MenuCasino extends JFrame {
 
 	private JPanel contentPane;

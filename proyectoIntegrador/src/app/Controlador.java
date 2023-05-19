@@ -62,4 +62,22 @@ public class Controlador {
 		
 	}
 	
+	public void volverMenu() {
+		miBienvenida.setVisible(true);
+		pantallaApuesta.setVisible(false);
+	}
+	
+	public void guardarUsr() {
+		miBienvenida.setVisible(true);
+		config.setVisible(false);
+	}
+	public void cambiarDatos() {
+		String nuevoNombre= config.getTxtUsuario();
+		String newPasswd=config.getnewPasswd();
+		miBienvenida.setTxtUsuario(nuevoNombre);
+		modelo.setUsr(nuevoNombre);
+		modelo.setContraseña(newPasswd);
+		
+	}
+	
 }

@@ -55,6 +55,8 @@ public class Bienvenida extends JFrame {
 		JButton btnEstadisticas = new JButton("ESTADISTICAS");
 		btnEstadisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//accedera a las estadisticas de los equipos que será en la 
+				//proxima entrega
 			}
 		});
 		btnEstadisticas.setForeground(new Color(255, 255, 255));
@@ -130,7 +132,7 @@ public class Bienvenida extends JFrame {
 	}
 
 	
-	public void cambiarSaldo() throws NumberFormatException{
+	public void cambiarSaldo() {
 		int cantidad = 0;
 		if(!textCant.getText().isEmpty())
 			cantidad = Integer.parseInt(textCant.getText().trim());

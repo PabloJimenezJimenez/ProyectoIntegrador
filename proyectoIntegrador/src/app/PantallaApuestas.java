@@ -133,6 +133,16 @@ public class PantallaApuestas extends JFrame {
 		JLabel label7 = new JLabel("2.30 - 2.80");
 		label7.setBounds(327, 195, 77, 14);
 		contentPane.add(label7);
+		
+		JButton btnAtras = new JButton("Atrás");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladoor.volverMenu();
+			}
+		});
+		btnAtras.setBackground(new Color(86, 116, 190));
+		btnAtras.setBounds(10, 10, 85, 21);
+		contentPane.add(btnAtras);
 	}
 
 	public JButton getBtnApuesta1() {
@@ -166,5 +176,4 @@ public class PantallaApuestas extends JFrame {
 	public void setControladoor(Controlador controladoor) {
 		this.controladoor = controladoor;
 	}
-	
 }

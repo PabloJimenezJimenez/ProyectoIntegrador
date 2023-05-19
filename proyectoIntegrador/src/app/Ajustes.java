@@ -15,13 +15,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Ajustes extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuar;
 	private JTextField txtContra;
-	private Controlador miContralador;
+	private Controlador miControlador;
 
 
 	
@@ -31,6 +32,7 @@ public class Ajustes extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(128, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -57,9 +59,11 @@ public class Ajustes extends JFrame {
 		txtContra.setColumns(10);
 		
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setBackground(new Color(86, 116, 190));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miContralador.cambiarUsr();
+				miControlador.cambiarDatos();
+				miControlador.guardarUsr();
 			}
 		});
 		btnGuardar.setBounds(175, 213, 85, 21);
@@ -73,13 +77,13 @@ public class Ajustes extends JFrame {
 	}
 
 
-	public JTextField getTxtContraseña() {
-		return txtContra;
+	public String getnewPasswd() {
+		return txtContra.getText();
 	}
 
 
 	public void setMiContralador(Controlador miContralador) {
-		this.miContralador = miContralador;
+		this.miControlador = miContralador;
 	}
 	
 	

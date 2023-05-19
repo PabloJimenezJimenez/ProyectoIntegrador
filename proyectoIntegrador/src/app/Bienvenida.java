@@ -55,8 +55,8 @@ public class Bienvenida extends JFrame {
 		JButton btnEstadisticas = new JButton("ESTADISTICAS");
 		btnEstadisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//accedera a las estadisticas de los equipos que será en la 
-				//proxima entrega
+				//accedera a las estadisticas de los equipos de la BBDD que será en la 
+				//proxima entrega 
 			}
 		});
 		btnEstadisticas.setForeground(new Color(255, 255, 255));
@@ -109,6 +109,7 @@ public class Bienvenida extends JFrame {
 		
 		textCant = new JTextField();
 		textCant.addKeyListener(new KeyAdapter() {
+			//evento para que solo se pueda escribir numeros
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if((e.getKeyChar()>57 || e.getKeyChar()<48)&& e.getKeyChar() !=8) {
@@ -131,7 +132,7 @@ public class Bienvenida extends JFrame {
 		this.txtUsuario.setText("Usuario: "+txtUsuario);
 	}
 
-	
+	//metodo que ira actualizando el saldo de aplicacion
 	public void cambiarSaldo() {
 		int cantidad = 0;
 		if(!textCant.getText().isEmpty())
@@ -140,7 +141,7 @@ public class Bienvenida extends JFrame {
 		this.txtSaldo.setText("SALDO: " + this.saldo + " €");
 	}
 
-
+	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}

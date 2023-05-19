@@ -27,12 +27,15 @@ public class Controlador {
 	public void setMiBienvenida(Bienvenida miBienvenida) {
 		this.miBienvenida = miBienvenida;
 	}
+	
+	//mostraremos la bienvenida y ocultaremos el login
 	public void bienvinida() {
 		
 		vista.setVisible(false);
 		miBienvenida.setVisible(true);
 	}
 	
+	//actualizaremos el usuario con el nombre que meta
 	public void cambiarUsr() {
 		//config = new Ajustes();
 		String nombre = config.getTxtUsuario();
@@ -51,6 +54,8 @@ public class Controlador {
 		miBienvenida.setVisible(false);
 		pantallaApuesta.setVisible(true);
 	}
+	
+	//entrará en el apartado de una apuesta y cerrara el apartado con todas las apuestas
 	public void cambiarPantalla() {
 		pantallaApuesta.setVisible(false);
 		apuestas.setVisible(true);
@@ -62,15 +67,20 @@ public class Controlador {
 		
 	}
 	
+	//volvera al menu de bienvenida
 	public void volverMenu() {
 		miBienvenida.setVisible(true);
 		pantallaApuesta.setVisible(false);
 	}
 	
+	//cuando le de al boton guardar en el apartado de ajustes volvera al menu 
+	//y cerrera los ajustes
 	public void guardarUsr() {
 		miBienvenida.setVisible(true);
 		config.setVisible(false);
 	}
+	
+	//cambiara los datos del usuario cuando vaya a ajustes
 	public void cambiarDatos() {
 		String nuevoNombre= config.getTxtUsuario();
 		String newPasswd=config.getnewPasswd();

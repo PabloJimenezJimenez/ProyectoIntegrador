@@ -62,6 +62,8 @@ public class Ajustes extends JFrame {
 		btnGuardar.setBackground(new Color(86, 116, 190));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//guardaremos los datos en la BBDD 
+				//de momento actualizaremos el usuario pero no se guardara cuando cierre
 				miControlador.cambiarDatos();
 				miControlador.guardarUsr();
 			}

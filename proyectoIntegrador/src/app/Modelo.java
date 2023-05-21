@@ -16,14 +16,11 @@ private Login miVista;
 	}
 
 
-
-
-
 	public void setMiVista(Login miVista) {
 		this.miVista = miVista;
 	}
 
-
+	//comprobaremos el usuario y la contraseña
 	public void login(String usr,String contraseña) {
 		
 		if(this.usr.equals(usr) && this.contraseña.equals(contraseña)) {
@@ -39,9 +36,11 @@ private Login miVista;
 			
 		}
 	
+		//llamamos al metodo que esta en el login
 		miVista.actualizar();
 	}
 
+	//generamos getters y setters
 	public String getResultado() {
 		return this.resultado;
 	}

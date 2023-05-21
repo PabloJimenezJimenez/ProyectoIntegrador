@@ -58,6 +58,9 @@ public class ApuestasDep extends JFrame {
 		JButton btnEquipoLocal = new JButton("Local");
 		btnEquipoLocal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/*Pongo visible el JTextField para apuesta local
+				 * y escondo los otros dos
+				 */
 				apuestaLocal.setVisible(true);
 				prorroga.setVisible(false);
 				prorroga.setText("");
@@ -72,6 +75,9 @@ public class ApuestasDep extends JFrame {
 		JButton btnEquipoVisitante = new JButton("Visitante");
 		btnEquipoVisitante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/*Pongo visible el JTextField para apuesta visitante
+				 * y escondo los otros dos
+				 */
 				apuestaLocal.setVisible(false);
 				apuestaLocal.setText("");
 				prorroga.setVisible(false);
@@ -86,6 +92,9 @@ public class ApuestasDep extends JFrame {
 		JButton btnProrroga = new JButton("Prorroga");
 		btnProrroga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/*Pongo visible el JTextField para prorroga
+				 * y escondo los otros dos
+				 */
 				apuestaLocal.setVisible(false);
 				apuestaLocal.setText("");
 				prorroga.setVisible(true);
@@ -117,6 +126,7 @@ public class ApuestasDep extends JFrame {
 		apuestaVisitante.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				//Condicional para que solo se metan numeros
 				if((e.getKeyChar()>57 || e.getKeyChar()<48)&& e.getKeyChar() !=8) {
 					String mod= apuestaVisitante.getText();
 					mod= mod.substring(0,mod.length()-1);
@@ -133,6 +143,7 @@ public class ApuestasDep extends JFrame {
 		prorroga.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				//Condicional para que solo se metan numeros
 				if((e.getKeyChar()>57 || e.getKeyChar()<48)&& e.getKeyChar() !=8) {
 					String mod= prorroga.getText();
 					mod= mod.substring(0,mod.length()-1);
@@ -149,14 +160,19 @@ public class ApuestasDep extends JFrame {
 		btnGuardarApuesta.setBackground(new Color(89, 116, 190));
 		btnGuardarApuesta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Condicional para saber en que JTextField está introducida la cantidad 
 				if(!apuestaLocal.getText().equals("")) {
+					//Cantidad apostada
 					double cantidad= Double.parseDouble(apuestaLocal.getText());
+					//Cuota
 					double cuota= Double.parseDouble(cuotaLocal.getText());
 					cantApuesta= cantidad*cuota;
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
 					System.out.println(cantApuesta);
+					/*Posteriormente introducire la variable cantApuesta en la base de datos*/
 					apuestaLocal.setText("");
+					//Vuelvo a la pantalla anterior
 					controlador.pantallaAnterior();
 					
 				}else if(!apuestaVisitante.getText().equals("")) {
@@ -202,6 +218,8 @@ public class ApuestasDep extends JFrame {
 		
 		
 	}
+	
+	//Setter del controlador
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}

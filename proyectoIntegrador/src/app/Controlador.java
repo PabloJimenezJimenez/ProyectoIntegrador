@@ -10,6 +10,7 @@ public class Controlador {
 	private ApuestasDep apuestas;
 	private MenuCasino menuCasino;
 	private Ruleta ruleta;
+	private PantallaEstadisticas estadisticas;
 	
 	
 	public void setMenuCasino(MenuCasino menuCasino) {
@@ -122,6 +123,22 @@ public class Controlador {
 		menuCasino.setVisible(true);
 		
 	}
+	
+	
+	public void volverMenuPrincipal() {
+		miBienvenida.setVisible(true);
+		estadisticas.setVisible(false);
+	}
+	public void setEstadisticas(PantallaEstadisticas estadisticas) {
+		this.estadisticas = estadisticas;
+	}
+	public void pEstadisticas() {
+		miBienvenida.setVisible(false);
+		estadisticas.setVisible(true);
+		
+	}
+	
+	
 	
 	
 }

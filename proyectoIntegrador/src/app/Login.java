@@ -67,6 +67,8 @@ public class Login extends JFrame {
 		
 	}
 
+	//generamos getters y setters
+	
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
@@ -84,6 +86,7 @@ public class Login extends JFrame {
 		return String.valueOf(txtPass.getPassword());
 	}
 
+	//metodo actualizar, en caso de que el usuario o la contraseña sean incorrectos
 	public void actualizar() {
 		String resultado = modelo.getResultado();
 		

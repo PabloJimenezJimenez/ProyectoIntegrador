@@ -9,10 +9,15 @@ public class Main {
 		Login miVista = new Login();
 		PantallaApuestas pantalla = new PantallaApuestas();
 		ApuestasDep apuestas = new ApuestasDep();
+
 		Ruleta ruleta= new Ruleta();
 		MenuCasino menuCasino= new MenuCasino();
+
 		Bienvenida miBienvenida = new Bienvenida();
 		Ajustes config = new Ajustes();
+		PantallaEstadisticas estadisticas = new PantallaEstadisticas();
+		
+		//presentamos los setters al controlador
 		
 		miControlador.setModelo(miModelo);
 		miControlador.setVista(miVista);
@@ -21,8 +26,12 @@ public class Main {
 		miControlador.setApuestas(apuestas);
 		miControlador.setPantallaApuesta(pantalla);
 		miControlador.setConfig(config);
+
 		miControlador.setMenuCasino(menuCasino);
 		miControlador.setRuleta(ruleta);
+		
+		miControlador.setEstadisticas(estadisticas);
+
 		
 		miModelo.setMiVista(miVista);
 		
@@ -41,6 +50,8 @@ public class Main {
 		
 		ruleta.setControlador(miControlador);
 		
+		estadisticas.setMicontrolador(miControlador);
+
 		miVista.setVisible(true);
 		
 		

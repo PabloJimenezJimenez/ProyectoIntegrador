@@ -36,6 +36,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta1 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Cambio de pantalla
 				controladoor.cambiarPantalla();
 				
 				
@@ -48,6 +49,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta2 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Cambio de pantalla
 				controladoor.cambiarPantalla();
 			}
 		});
@@ -58,6 +60,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta3 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Cambio de pantalla
 				controladoor.cambiarPantalla();
 			}
 		});
@@ -68,6 +71,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta4 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Cambio de pantalla
 				controladoor.cambiarPantalla();
 			}
 			
@@ -79,6 +83,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta5 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Cambio de pantalla
 				controladoor.cambiarPantalla();
 			}
 		});
@@ -89,6 +94,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta6 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Cambio de pantalla
 				controladoor.cambiarPantalla();
 			}
 		});
@@ -99,6 +105,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta7 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Cambio de pantalla
 				controladoor.cambiarPantalla();
 			}
 		});
@@ -137,6 +144,8 @@ public class PantallaApuestas extends JFrame {
 		JButton btnAtras = new JButton("Atrás");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Llamo al procedimiento volverMenu de la clase controlador
+				//Me lleva a la pantalla anterior
 				controladoor.volverMenu();
 			}
 		});
@@ -145,34 +154,7 @@ public class PantallaApuestas extends JFrame {
 		contentPane.add(btnAtras);
 	}
 
-	public JButton getBtnApuesta1() {
-		return btnApuesta1;
-	}
-
-	public JButton getBtnApuesta2() {
-		return btnApuesta2;
-	}
-
-	public JButton getBtnApuesta3() {
-		return btnApuesta3;
-	}
-
-	public JButton getBtnApuesta4() {
-		return btnApuesta4;
-	}
-
-	public JButton getBtnApuesta5() {
-		return btnApuesta5;
-	}
-
-	public JButton getBtnApuesta6() {
-		return btnApuesta6;
-	}
-
-	public JButton getBtnApuesta7() {
-		return btnApuesta7;
-	}
-
+	//Genero el setter del controlador
 	public void setControladoor(Controlador controladoor) {
 		this.controladoor = controladoor;
 	}

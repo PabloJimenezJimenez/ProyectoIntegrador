@@ -68,7 +68,8 @@ public class Ajustes extends JFrame {
 	
 	}
 
-
+	//generamos los getters y los setters
+	
 	public String getTxtUsuario() {
 		return txtUsuar.getText();
 	}

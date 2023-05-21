@@ -8,6 +8,7 @@ public class Controlador {
 	private Ajustes config;
 	private PantallaApuestas pantallaApuesta;
 	private ApuestasDep apuestas;
+	private PantallaEstadisticas estadisticas;
 	
 	
 	public void setVista(Login vista) {
@@ -89,5 +90,21 @@ public class Controlador {
 		modelo.setContraseña(newPasswd);
 		
 	}
+	
+	public void volverMenuPrincipal() {
+		miBienvenida.setVisible(true);
+		estadisticas.setVisible(false);
+	}
+	public void setEstadisticas(PantallaEstadisticas estadisticas) {
+		this.estadisticas = estadisticas;
+	}
+	public void pEstadisticas() {
+		miBienvenida.setVisible(false);
+		estadisticas.setVisible(true);
+		
+	}
+	
+	
+	
 	
 }

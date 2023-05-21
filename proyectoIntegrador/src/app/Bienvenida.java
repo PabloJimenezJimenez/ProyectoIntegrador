@@ -1,8 +1,6 @@
 package app;
 
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,16 +10,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+@SuppressWarnings("serial")
 public class Bienvenida extends JFrame {
 
 	private JPanel contentPane;
 	private Controlador controlador;
-	private Modelo modelo;
 	private JTextField txtUsuario;
 	private JTextField txtSaldo; 
 	private int saldo;
 	private JTextField textCant;
-	private Ajustes confAjustes;
 	
 	public Bienvenida() {	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,6 +54,7 @@ public class Bienvenida extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//accedera a las estadisticas de los equipos de la BBDD que será en la 
 				//proxima entrega 
+				controlador.pEstadisticas();
 			}
 		});
 		btnEstadisticas.setForeground(new Color(255, 255, 255));

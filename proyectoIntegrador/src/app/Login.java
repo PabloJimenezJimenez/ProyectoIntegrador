@@ -1,7 +1,6 @@
 package app;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,13 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private Modelo modelo;
 	private Controlador controlador;
-	private Bienvenida miBienvenida;
-	
 	private JTextField txtUsr;
 	private JPasswordField txtPass;
 	private JLabel lblCorreccion;
@@ -71,6 +69,8 @@ public class Login extends JFrame {
 		
 	}
 
+	//generamos getters y setters
+	
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
@@ -88,6 +88,7 @@ public class Login extends JFrame {
 		return String.valueOf(txtPass.getPassword());
 	}
 
+	//metodo actualizar, en caso de que el usuario o la contraseña sean incorrectos
 	public void actualizar() {
 		String resultado = modelo.getResultado();
 		

@@ -117,6 +117,11 @@ public class Controlador {
 		menuCasino.setVisible(true);
 		
 	}
+	//Escribo el nombre de los equipos del partido en apuestas
+	public void MoverDatos(String partido) {
+		apuestas.setLblPartido(partido);
+		
+	}
 	
 	
 }

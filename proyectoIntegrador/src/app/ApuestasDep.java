@@ -25,6 +25,7 @@ public class ApuestasDep extends JFrame {
 	private JLabel cuotaLocal;
 	private JLabel cotaVisitante;
 	private JLabel cuotaProrroga;
+	private JLabel lblPartido;
 	private double cantApuesta;
 	public ApuestasDep() {
 		
@@ -51,7 +52,8 @@ public class ApuestasDep extends JFrame {
 		btnAnt.setBounds(10, 11, 91, 23);
 		contentPane.add(btnAnt);
 		
-		JLabel lblPartido = new JLabel("REAL MADRID - VALENCIA", SwingConstants.CENTER);
+		lblPartido= new JLabel();
+		lblPartido.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPartido.setBounds(10, 77, 428, 14);
 		contentPane.add(lblPartido);
 		
@@ -204,6 +206,10 @@ public class ApuestasDep extends JFrame {
 	}
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+	
+	public void setLblPartido(String partido) {
+		this.lblPartido.setText(partido);
 	}
 	
 	

@@ -14,6 +14,7 @@ public class PantallaApuestas extends JFrame {
 
 	private JPanel contentPane;
 	private Controlador controladoor;
+	private Modelo modelo;
 	private JButton btnApuesta1;
 	private JButton btnApuesta2;
 	private JButton btnApuesta3;
@@ -36,9 +37,8 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta1 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladoor.cambiarPantalla();
-				
-				
+				controladoor.cambiarPantalla();//cambio la pantalla
+				controladoor.MoverDatos(getBtnApuesta1());//Paso la información que tiene el jbutton
 			}
 		});
 		btnApuesta1.setBackground(new Color(89, 116, 190));
@@ -49,6 +49,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controladoor.cambiarPantalla();
+				controladoor.MoverDatos(getBtnApuesta2());
 			}
 		});
 		btnApuesta2.setBackground(new Color(89, 116, 190));
@@ -59,6 +60,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controladoor.cambiarPantalla();
+				controladoor.MoverDatos(getBtnApuesta3());
 			}
 		});
 		btnApuesta3.setBackground(new Color(89, 116, 190));
@@ -68,7 +70,8 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta4 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladoor.cambiarPantalla();
+				controladoor.cambiarPantalla();//cambio de pantalla
+				controladoor.MoverDatos(getBtnApuesta4());//Paso la información que tiene el jbutton
 			}
 			
 		});
@@ -79,7 +82,8 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta5 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
 		btnApuesta5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladoor.cambiarPantalla();
+				controladoor.cambiarPantalla();//cambio de pantalla
+				controladoor.MoverDatos(getBtnApuesta5());//Paso la información que tiene el jbutton
 			}
 		});
 		btnApuesta5.setBackground(new Color(89, 116, 190));
@@ -90,6 +94,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controladoor.cambiarPantalla();
+				controladoor.MoverDatos(getBtnApuesta6());//Paso la informacion que tiene el jbutton
 			}
 		});
 		btnApuesta6.setBackground(new Color(89, 116, 190));
@@ -100,6 +105,7 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controladoor.cambiarPantalla();
+				controladoor.MoverDatos(getBtnApuesta7());//Paso la informacion que tiene el jbutton
 			}
 		});
 		btnApuesta7.setBackground(new Color(89, 116, 190));
@@ -145,35 +151,69 @@ public class PantallaApuestas extends JFrame {
 		contentPane.add(btnAtras);
 	}
 
-	public JButton getBtnApuesta1() {
-		return btnApuesta1;
+	//genero los getter y setter 
+	public void setBtnApuesta1(String btnApuesta1) {
+		this.btnApuesta1.setText(btnApuesta1);
 	}
 
-	public JButton getBtnApuesta2() {
-		return btnApuesta2;
+	public void setBtnApuesta2(String btnApuesta2) {
+		this.btnApuesta2.setText(btnApuesta2);
 	}
 
-	public JButton getBtnApuesta3() {
-		return btnApuesta3;
+	public void setBtnApuesta3(String btnApuesta3) {
+		this.btnApuesta3.setText(btnApuesta3);
 	}
 
-	public JButton getBtnApuesta4() {
-		return btnApuesta4;
+	public void setBtnApuesta4(String btnApuesta4) {
+		this.btnApuesta4.setText(btnApuesta4);
 	}
 
-	public JButton getBtnApuesta5() {
-		return btnApuesta5;
+	public void setBtnApuesta5(String btnApuesta5) {
+		this.btnApuesta5.setText(btnApuesta5);
 	}
 
-	public JButton getBtnApuesta6() {
-		return btnApuesta6;
+	public void setBtnApuesta6(String btnApuesta6) {
+		this.btnApuesta6.setText(btnApuesta6);
 	}
 
-	public JButton getBtnApuesta7() {
-		return btnApuesta7;
+	public void setBtnApuesta7(String btnApuesta7) {
+		this.btnApuesta7.setText(btnApuesta7);
 	}
 
 	public void setControladoor(Controlador controladoor) {
 		this.controladoor = controladoor;
 	}
+	
+	public void setModelo(Modelo modelo) {
+		this.modelo=modelo;
+	}
+
+	public String getBtnApuesta1() {
+		return btnApuesta1.getText();
+	}
+
+	public String getBtnApuesta2() {
+		return btnApuesta2.getText();
+	}
+
+	public String getBtnApuesta3() {
+		return btnApuesta3.getText();
+	}
+
+	public String getBtnApuesta4() {
+		return btnApuesta4.getText();
+	}
+
+	public String getBtnApuesta5() {
+		return btnApuesta5.getText();
+	}
+
+	public String getBtnApuesta6() {
+		return btnApuesta6.getText();
+	}
+
+	public String getBtnApuesta7() {
+		return btnApuesta7.getText();
+	}
+	
 }

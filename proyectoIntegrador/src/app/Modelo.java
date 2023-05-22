@@ -1,45 +1,64 @@
 package app;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Modelo {
 
-private Login miVista;
-	
+	@SuppressWarnings("unused")
+	private Login miVista;
 	private String usr;
-	private String contraseña;
+	private String pswd;
 	private String resultado;
 	private int fallos;
-	
+	private Connection conexionBBDD;
+
 	public Modelo() {
-		this.usr="Admin";
-		this.contraseña="1234";
-		this.fallos=0;
+		this.usr="";
+		this.pswd="";
+		this.fallos = 0;
+		try {
+			this.conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/nba", "root", "");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
-
-
-
 
 	public void setMiVista(Login miVista) {
 		this.miVista = miVista;
 	}
 
-
-	public void login(String usr,String contraseña) {
+	public void login(String usr, String contraseña) {
+			try {
+				// Hago un prepared statement para saber si esta o no en la base de datos
+				PreparedStatement ps = conexionBBDD
+						.prepareStatement("select nombre,passwd from usuario where nombre=? AND passwd=?");
+				ps.setString(1, usr);// Le paso el nombre del usuario que ha introducido
+				ps.setString(2, contraseña);// Le paso la contraseña que ha introducido
+				ResultSet rs = ps.executeQuery();
+				//Guardo el nombre del usuario y su contraseña en dos variables. 
+				while (rs.next()) {
+					this.usr = rs.getString("nombre");
+					this.pswd = rs.getString("passwd");
+				}
+				if(this.usr.equals("") && this.pswd.equals("")) {
+					fallos++;
+					if (fallos == 3) {
+						resultado = "Cerrar";
+					} else
+						resultado = "ERROR";
+				}else {
+					resultado = "correcto";
+				}
+				miVista.actualizar();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		
-		if(this.usr.equals(usr) && this.contraseña.equals(contraseña)) {
-			resultado = "correcto";
-		}else {
-			
-			fallos++; 		
-			
-			if (fallos == 3) {
-				resultado = "Cerrar";
-			}else
-				resultado = "ERROR";
-			
-		}
-	
-		miVista.actualizar();
+
 	}
 
 	public String getResultado() {
@@ -48,10 +67,11 @@ private Login miVista;
 
 	public void setUsr(String usr) {
 		this.usr = usr;
+		
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContraseña(String pswd) {
+		this.pswd = pswd;
 	}
-	
+
 }

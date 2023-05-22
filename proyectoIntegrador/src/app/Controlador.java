@@ -44,11 +44,6 @@ public class Controlador {
 	}
 	
 	//actualizaremos el usuario con el nombre que meta
-	public void cambiarUsr() {
-		//config = new Ajustes();
-		String nombre = config.getTxtUsuario();
-		miBienvenida.setTxtUsuario(nombre);
-	}
 	public void setConfig(Ajustes config) {
 		this.config = config;
 	}

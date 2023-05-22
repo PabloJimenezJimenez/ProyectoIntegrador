@@ -66,12 +66,31 @@ public class Modelo {
 	}
 
 	public void setUsr(String usr) {
-		this.usr = usr;
+		try {
+			PreparedStatement cambioUsr=conexionBBDD.prepareStatement("update usuarios set nombre=? where nombre=?");
+			cambioUsr.setString(1, usr);//Nuevo nombre de usuario
+			cambioUsr.setString(2, this.usr);//Antiguo nombre
+			this.usr = usr;//Modifico el valor de usr.
+			cambioUsr.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 
 	public void setContraseña(String pswd) {
-		this.pswd = pswd;
+		try {
+			PreparedStatement cambioPswd=conexionBBDD.prepareStatement("update usuarios set passwd=? where passwd=?");
+			cambioPswd.setString(1, pswd);//Nueva contraseña de usuario
+			cambioPswd.setString(2, this.pswd);//Antigua contraseña
+			this.pswd = pswd;//Modifico el valor de usr.
+			cambioPswd.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -211,6 +211,15 @@ public class ApuestasDep extends JFrame {
 	public void setLblPartido(String partido) {
 		this.lblPartido.setText(partido);
 	}
+	public void setCuotaLocal(String cuotaLocal) {
+		this.cuotaLocal.setText(cuotaLocal);
+	}
+	public void setCuotaVisitante(String cotaVisitante) {
+		this.cotaVisitante.setText(cotaVisitante);
+	}
+	public void setCuotaProrroga(String cuotaProrroga) {
+		this.cuotaProrroga.setText(cuotaProrroga);
+	}
 	
 	
 }

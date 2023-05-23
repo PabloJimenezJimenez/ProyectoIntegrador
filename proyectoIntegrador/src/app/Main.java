@@ -25,6 +25,8 @@ public class Main {
 		miControlador.setRuleta(ruleta);
 		
 		miModelo.setMiVista(miVista);
+		miModelo.setApuestasDep(apuestas);
+		miModelo.setPantallaApuestas(pantalla);
 		
 		miVista.setModelo(miModelo);
 		miVista.setControlador(miControlador);
@@ -34,6 +36,7 @@ public class Main {
 		config.setMiContralador(miControlador);
 		
 		apuestas.setControlador(miControlador);
+		
 		
 		pantalla.setControladoor(miControlador);
 		

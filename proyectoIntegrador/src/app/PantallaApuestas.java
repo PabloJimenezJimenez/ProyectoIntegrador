@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
@@ -14,7 +15,6 @@ public class PantallaApuestas extends JFrame {
 
 	private JPanel contentPane;
 	private Controlador controladoor;
-	private Modelo modelo;
 	private JButton btnApuesta1;
 	private JButton btnApuesta2;
 	private JButton btnApuesta3;
@@ -183,11 +183,6 @@ public class PantallaApuestas extends JFrame {
 	public void setControladoor(Controlador controladoor) {
 		this.controladoor = controladoor;
 	}
-	
-	public void setModelo(Modelo modelo) {
-		this.modelo=modelo;
-	}
-
 	public String getBtnApuesta1() {
 		return btnApuesta1.getText();
 	}
@@ -215,5 +210,18 @@ public class PantallaApuestas extends JFrame {
 	public String getBtnApuesta7() {
 		return btnApuesta7.getText();
 	}
-	
+
+	public void generarJornada(HashMap<Integer, String> partidos) {
+		//Pongo el texto de cada jornada en el btn corespondiente
+		btnApuesta1.setText(partidos.get(1));
+		btnApuesta2.setText(partidos.get(2));
+		btnApuesta3.setText(partidos.get(3));
+		btnApuesta4.setText(partidos.get(4));
+		btnApuesta5.setText(partidos.get(5));
+		btnApuesta6.setText(partidos.get(6));
+		btnApuesta7.setText(partidos.get(7));
+		
+	}
+
+		
 }

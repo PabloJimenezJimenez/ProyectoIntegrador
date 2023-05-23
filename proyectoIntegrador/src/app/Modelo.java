@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 
 public class Modelo {
@@ -102,9 +103,11 @@ public class Modelo {
 	}
 
 	public void generarPartido() {
+		HashMap<Integer, String> partidos= new HashMap<>();
 		for (int i = 1; i <= 7; i++) {
 			int local = (int) (Math.random() * 30 + 1);
 			int partido = (local - 1) * 58 + (int) (Math.random() * 58 + 1);
+			String partido_guardado="";
 			try {
 				String eqLocal="";
 				String eqVisitante="";
@@ -116,20 +119,24 @@ public class Modelo {
 					eqLocal=rs.getString("equipo_local");
 					eqVisitante=rs.getString("equipo_visitante");
 				}
-				generarCuota(eqLocal,eqVisitante);
+				partido_guardado=eqLocal+"-"+eqVisitante;
+				partidos.put(i, partido_guardado);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		pantallaApuestas.generarJornada(partidos);
+		
 	}
 
-	private void generarCuota(String eqLocal, String eqVisitante) {
+	public void generarCuota(String eqLocal, String eqVisitante) {
 		try {
 			int mediaLocal=0;
 			int mediaVisitante=0;
 			int cuotaLocal=0;
 			int cuotaVisitante=0;
 			int cuotaProrroga=0;
+			int cuotaProrogaVis=0;
 			//Preparo dos sentencias para saber la media de puntos de ambos equipos
 			PreparedStatement mediaEqLocal= conexionBBDD.prepareStatement("SELECT round(AVG(puntos_local),0) FROM partidos WHERE temporada='99/00' AND equipo_local=?;");
 			PreparedStatement mediaEqVisitante=conexionBBDD.prepareStatement("SELECT round(AVG(puntos_visitante),0) FROM partidos WHERE temporada='99/00' AND equipo_visitante=?;");
@@ -143,7 +150,7 @@ public class Modelo {
 			while(vis.next()) {
 				mediaVisitante=vis.getInt("round(AVG(puntos_visitante),0)");
 			}
-			if(mediaLocal>mediaVisitante) {
+			if(mediaLocal>mediaVisitante || mediaLocal==mediaVisitante) {
 				//Sentencia preparada para saber el numero de partidos que ha superado el valor objetivo el equipo local
 				PreparedStatement supMedLocal=conexionBBDD.prepareStatement("SELECT COUNT(*) FROM partidos WHERE temporada='99/00' and puntos_local>? AND equipo_local=?;");
 				//Sentencia preparada para saber el numero de partidos que ha superado el valor objetivo el equipo visitante
@@ -179,6 +186,54 @@ public class Modelo {
 					cuotaVisitante=supVis.getInt("COUNT(*)");
 				}
 				while(igLocal.next()) {
+					cuotaProrroga=igLocal.getInt("COUNT(*)");
+				}
+				while(igVis.next()) {
+					cuotaProrogaVis=igLocal.getInt("COUNT(*)");
+				}
+				cuotaProrroga+=cuotaProrogaVis;
+				cuotaLocal=1/(cuotaLocal/58);
+				cuotaVisitante=1/(cuotaVisitante/58);
+				cuotaProrroga=1/(cuotaProrroga/58);
+				apuestasDep.setCuotaLocal(Integer.toString(cuotaLocal));
+				apuestasDep.setCuotaProrroga(Integer.toString(cuotaProrroga));
+				apuestasDep.setCuotaVisitante(Integer.toString(cuotaVisitante));
+			}else if(mediaVisitante > mediaLocal) {
+				//Sentencia preparada para saber el numero de partidos que ha superado el valor objetivo el equipo local
+				PreparedStatement supMedLocal=conexionBBDD.prepareStatement("SELECT COUNT(*) FROM partidos WHERE temporada='99/00' and puntos_local>? AND equipo_local=?;");
+				//Sentencia preparada para saber el numero de partidos que ha superado el valor objetivo el equipo visitante
+				PreparedStatement supMedVisitante= conexionBBDD.prepareStatement("SELECT COUNT(*) FROM partidos WHERE temporada='99/00' and puntos_visitante>? AND equipo_visitante=?;");
+				//Sentencia preparada para saber el numero de partidos que ha igualado el valor objetivo el equipo local
+				PreparedStatement igualMedLocal= conexionBBDD.prepareStatement("SELECT COUNT(*) FROM partidos WHERE temporada='99/00' and puntos_local=? AND equipo_local=?;");
+				//Sentencia preparada para saber el numero de partidos que ha igualado el valor objetivo el equipo visitante
+				PreparedStatement igualMedVis=conexionBBDD.prepareStatement("SELECT COUNT(*) FROM partidos WHERE temporada='99/00' and puntos_visitante=? AND equipo_visitante=?;");
+				//Doy valor a las incognitas
+				supMedLocal.setInt(1, mediaVisitante);
+				supMedLocal.setString(2, eqLocal);
+				
+				supMedVisitante.setInt(1, mediaVisitante);
+				supMedVisitante.setString(2, eqVisitante);
+				
+				igualMedLocal.setInt(1, mediaVisitante);
+				igualMedLocal.setString(2, eqLocal);
+				
+				igualMedVis.setInt(1,mediaVisitante);
+				igualMedVis.setString(2, eqVisitante);
+				
+				//ResultSet
+				ResultSet supLocal=supMedLocal.executeQuery();
+				ResultSet supVis=supMedVisitante.executeQuery();
+				ResultSet igLocal=igualMedLocal.executeQuery();
+				ResultSet igVis=igualMedVis.executeQuery();
+				
+				//Guardo el resultado de los resultset en variables
+				while(supLocal.next()) {
+					cuotaLocal=supLocal.getInt("COUNT(*)");
+				}
+				while(supVis.next()) {
+					cuotaVisitante=supVis.getInt("COUNT(*)");
+				}
+				while(igLocal.next()) {
 					cuotaProrroga+=igLocal.getInt("COUNT(*)");
 				}
 				while(igVis.next()) {
@@ -188,9 +243,9 @@ public class Modelo {
 				cuotaLocal=1/(cuotaLocal/58);
 				cuotaVisitante=1/(cuotaVisitante/58);
 				cuotaProrroga=1/(cuotaProrroga/58);
-			}else if(mediaVisitante > mediaLocal) {
-				
-			}else {
+				apuestasDep.setCuotaLocal(Integer.toString(cuotaLocal));
+				apuestasDep.setCuotaProrroga(Integer.toString(cuotaProrroga));
+				apuestasDep.setCuotaVisitante(Integer.toString(cuotaVisitante));
 				
 			}
 		} catch (SQLException e) {

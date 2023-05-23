@@ -30,6 +30,7 @@ public class Controlador {
 		String pass = vista.getPass();
 		miBienvenida.setTxtUsuario(vista.getUsr());
 		modelo.login(user,pass);
+		modelo.generarPartido();
 		
 	}
 	public void setMiBienvenida(Bienvenida miBienvenida) {
@@ -120,6 +121,13 @@ public class Controlador {
 	//Escribo el nombre de los equipos del partido en apuestas
 	public void MoverDatos(String partido) {
 		apuestas.setLblPartido(partido);
+		String equipos[]=partido.split("-");
+		//Saco los equipos para generar la cuota
+		String eqLocal=equipos[0];
+		String eqVis= equipos[1];
+		System.out.println(eqLocal);
+		System.out.println(eqVis);
+		modelo.generarCuota(eqLocal, eqVis);
 		
 	}
 	

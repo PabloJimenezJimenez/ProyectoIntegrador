@@ -18,8 +18,8 @@ public class Bienvenida extends JFrame {
 	private Controlador controlador;
 	private JTextField txtUsuario;
 	private JTextField txtSaldo; 
-	private int saldo;
 	private JTextField textCant;
+	private Modelo modelo;
 	
 	
 	public Bienvenida() {	
@@ -29,7 +29,6 @@ public class Bienvenida extends JFrame {
 		contentPane.setBackground(new Color(128, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	
-		this.saldo = 0;
 		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -81,7 +80,9 @@ public class Bienvenida extends JFrame {
 		btnIngresarDinero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textCant.setVisible(true);
-				cambiarSaldo();	
+				if(!textCant.getText().equals("")) {
+					controlador.modificarSaldo(Double.parseDouble(textCant.getText()));
+				}
 			}
 		});
 		btnIngresarDinero.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -105,7 +106,7 @@ public class Bienvenida extends JFrame {
 		txtSaldo = new JTextField();
 		txtSaldo.setForeground(new Color(255, 255, 255));
 		txtSaldo.setBackground(new Color(86, 116, 190));
-		txtSaldo.setText("Saldo: " + this.saldo + " €");
+		txtSaldo.setText("Saldo: 0€");
 		txtSaldo.setEditable(false);
 		txtSaldo.setBounds(10, 339, 96, 19);
 		contentPane.add(txtSaldo);
@@ -135,17 +136,16 @@ public class Bienvenida extends JFrame {
 	public void setTxtUsuario(String txtUsuario) {
 		this.txtUsuario.setText("Usuario: "+txtUsuario);
 	}
-
-	//metodo que ira actualizando el saldo de aplicacion
-	public void cambiarSaldo() {
-		int cantidad = 0;
-		if(!textCant.getText().isEmpty())
-			cantidad = Integer.parseInt(textCant.getText().trim());
-		this.saldo = saldo + cantidad;
-		this.txtSaldo.setText("SALDO: " + this.saldo + " €");
+	
+	public void setTxtSaldo(String txtSaldo) {
+		this.txtSaldo.setText(txtSaldo); 
 	}
 
-	
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}

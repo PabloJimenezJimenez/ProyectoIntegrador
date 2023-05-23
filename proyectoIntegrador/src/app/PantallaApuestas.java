@@ -112,34 +112,6 @@ public class PantallaApuestas extends JFrame {
 		btnApuesta7.setBounds(36, 191, 281, 23);
 		contentPane.add(btnApuesta7);
 		
-		JLabel label1 = new JLabel("2.30 - 2.80");
-		label1.setBounds(327, 47, 100, 23);
-		contentPane.add(label1);
-		
-		JLabel label2 = new JLabel("2.30 - 2.80");
-		label2.setBounds(327, 75, 77, 14);
-		contentPane.add(label2);
-		
-		JLabel label3 = new JLabel("2.30 - 2.80");
-		label3.setBounds(327, 99, 77, 14);
-		contentPane.add(label3);
-		
-		JLabel label4 = new JLabel("2.30 - 2.80");
-		label4.setBounds(327, 123, 77, 14);
-		contentPane.add(label4);
-		
-		JLabel label5 = new JLabel("2.30 - 2.80");
-		label5.setBounds(327, 147, 77, 14);
-		contentPane.add(label5);
-		
-		JLabel label6 = new JLabel("2.30 - 2.80");
-		label6.setBounds(327, 171, 77, 14);
-		contentPane.add(label6);
-		
-		JLabel label7 = new JLabel("2.30 - 2.80");
-		label7.setBounds(327, 195, 77, 14);
-		contentPane.add(label7);
-		
 		JButton btnAtras = new JButton("Atrás");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

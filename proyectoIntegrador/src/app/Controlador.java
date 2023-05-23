@@ -11,7 +11,6 @@ public class Controlador {
 	private MenuCasino menuCasino;
 	private Ruleta ruleta;
 	
-	
 	public void setMenuCasino(MenuCasino menuCasino) {
 		this.menuCasino = menuCasino;
 	}
@@ -128,6 +127,19 @@ public class Controlador {
 		System.out.println(eqLocal);
 		System.out.println(eqVis);
 		modelo.generarCuota(eqLocal, eqVis);
+		
+	}
+	public void modificarSaldo(double cant) {
+		double saldo=(modelo.getSaldo()+cant);
+		if(saldo <0) {
+			miBienvenida.setTxtSaldo("Saldo negativo");
+		}else {
+			//Modifico el textfield con el saldo
+			miBienvenida.setTxtSaldo("Saldo: "+saldo+" €");
+			//Modifico el valor del saldo
+			modelo.setSaldo(saldo);
+		}
+		
 		
 	}
 	

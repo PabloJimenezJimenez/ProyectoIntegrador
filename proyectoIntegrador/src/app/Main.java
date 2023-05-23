@@ -27,11 +27,13 @@ public class Main {
 		miModelo.setMiVista(miVista);
 		miModelo.setApuestasDep(apuestas);
 		miModelo.setPantallaApuestas(pantalla);
+		miModelo.setBienvenida(miBienvenida);
 		
 		miVista.setModelo(miModelo);
 		miVista.setControlador(miControlador);
 		
 		miBienvenida.setControlador(miControlador);
+		miBienvenida.setModelo(miModelo);
 		
 		config.setMiContralador(miControlador);
 		

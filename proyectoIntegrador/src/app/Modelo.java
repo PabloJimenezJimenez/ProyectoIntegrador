@@ -8,16 +8,19 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 
+
 public class Modelo {
 
 	private Login miVista;
 	private ApuestasDep apuestasDep;
 	private PantallaApuestas pantallaApuestas;
+	private Bienvenida bienvenida;
 	private String usr;
 	private String pswd;
 	private String resultado;
 	private int fallos;
 	private Connection conexionBBDD;
+	private double saldo;
 
 	public Modelo() {
 		this.usr = "";
@@ -42,6 +45,11 @@ public class Modelo {
 		this.pantallaApuestas = pantallaApuestas;
 	}
 
+	
+	public void setBienvenida(Bienvenida bienvenida) {
+		this.bienvenida = bienvenida;
+	}
+
 	public void login(String usr, String contraseña) {
 		try {
 			// Hago un prepared statement para saber si esta o no en la base de datos
@@ -62,6 +70,8 @@ public class Modelo {
 				} else
 					resultado = "ERROR";
 			} else {
+				//Llamo al procedimiento para obtener el saldo del cliente
+				obtenerSaldo(usr);
 				resultado = "correcto";
 			}
 			miVista.actualizar();
@@ -133,10 +143,10 @@ public class Modelo {
 		try {
 			int mediaLocal=0;
 			int mediaVisitante=0;
-			int cuotaLocal=0;
-			int cuotaVisitante=0;
-			int cuotaProrroga=0;
-			int cuotaProrogaVis=0;
+			double cuotaLocal=0;
+			double cuotaVisitante=0;
+			double cuotaProrroga=0;
+			double cuotaProrogaVis=0;
 			//Preparo dos sentencias para saber la media de puntos de ambos equipos
 			PreparedStatement mediaEqLocal= conexionBBDD.prepareStatement("SELECT round(AVG(puntos_local),0) FROM partidos WHERE temporada='99/00' AND equipo_local=?;");
 			PreparedStatement mediaEqVisitante=conexionBBDD.prepareStatement("SELECT round(AVG(puntos_visitante),0) FROM partidos WHERE temporada='99/00' AND equipo_visitante=?;");
@@ -181,23 +191,38 @@ public class Modelo {
 				//Guardo el resultado de los resultset en variables
 				while(supLocal.next()) {
 					cuotaLocal=supLocal.getInt("COUNT(*)");
+					System.out.println(cuotaLocal);
 				}
 				while(supVis.next()) {
 					cuotaVisitante=supVis.getInt("COUNT(*)");
+					System.out.println(cuotaVisitante);
 				}
 				while(igLocal.next()) {
 					cuotaProrroga=igLocal.getInt("COUNT(*)");
+					System.out.println(cuotaProrroga);
 				}
 				while(igVis.next()) {
-					cuotaProrogaVis=igLocal.getInt("COUNT(*)");
+					cuotaProrogaVis=igVis.getInt("COUNT(*)");
+					System.out.println(cuotaProrogaVis);
 				}
 				cuotaProrroga+=cuotaProrogaVis;
+				//condicional para modificar el valor de la proroga si sale 0
+				if(cuotaProrroga==0) {
+					cuotaProrroga=0.5;
+				}
 				cuotaLocal=1/(cuotaLocal/58);
 				cuotaVisitante=1/(cuotaVisitante/58);
 				cuotaProrroga=1/(cuotaProrroga/58);
-				apuestasDep.setCuotaLocal(Integer.toString(cuotaLocal));
-				apuestasDep.setCuotaProrroga(Integer.toString(cuotaProrroga));
-				apuestasDep.setCuotaVisitante(Integer.toString(cuotaVisitante));
+				//Redondeo a dos decimeales
+				cuotaLocal=(Math.round(cuotaLocal*100));
+				cuotaLocal/=100;
+				cuotaVisitante=(Math.round(cuotaVisitante*100));
+				cuotaVisitante/=100;
+				cuotaProrroga=Math.round(cuotaProrroga);
+				//Introduzco cada cuota en su jlabel
+				apuestasDep.setCuotaLocal(Double.toString(cuotaLocal));
+				apuestasDep.setCuotaProrroga(Double.toString(cuotaProrroga));
+				apuestasDep.setCuotaVisitante(Double.toString(cuotaVisitante));
 			}else if(mediaVisitante > mediaLocal) {
 				//Sentencia preparada para saber el numero de partidos que ha superado el valor objetivo el equipo local
 				PreparedStatement supMedLocal=conexionBBDD.prepareStatement("SELECT COUNT(*) FROM partidos WHERE temporada='99/00' and puntos_local>? AND equipo_local=?;");
@@ -234,18 +259,31 @@ public class Modelo {
 					cuotaVisitante=supVis.getInt("COUNT(*)");
 				}
 				while(igLocal.next()) {
-					cuotaProrroga+=igLocal.getInt("COUNT(*)");
+					cuotaProrroga=igLocal.getInt("COUNT(*)");
+					System.out.println(cuotaProrroga);
 				}
 				while(igVis.next()) {
-					cuotaProrroga+=igLocal.getInt("COUNT(*)");
+					cuotaProrogaVis=igVis.getInt("COUNT(*)");
+					System.out.println(cuotaProrogaVis);
 				}
-				
+				cuotaProrroga+=cuotaProrogaVis;
+				//condicional para modificar el valor de la proroga si sale 0
+				if(cuotaProrroga==0) {
+					cuotaProrroga=0.5;
+				}
 				cuotaLocal=1/(cuotaLocal/58);
 				cuotaVisitante=1/(cuotaVisitante/58);
 				cuotaProrroga=1/(cuotaProrroga/58);
-				apuestasDep.setCuotaLocal(Integer.toString(cuotaLocal));
-				apuestasDep.setCuotaProrroga(Integer.toString(cuotaProrroga));
-				apuestasDep.setCuotaVisitante(Integer.toString(cuotaVisitante));
+				//Redondeo a dos decimeales
+				cuotaLocal=(Math.round(cuotaLocal*100));
+				cuotaLocal/=100;
+				cuotaVisitante=(Math.round(cuotaVisitante*100));
+				cuotaVisitante/=100;
+				cuotaProrroga=Math.round(cuotaProrroga);
+				//Introduzco cada cuota en su jlabel
+				apuestasDep.setCuotaLocal(Double.toString(cuotaLocal));
+				apuestasDep.setCuotaProrroga(Double.toString(cuotaProrroga));
+				apuestasDep.setCuotaVisitante(Double.toString(cuotaVisitante));
 				
 			}
 		} catch (SQLException e) {
@@ -255,6 +293,37 @@ public class Modelo {
 		
 	}
 
-	
+	public void obtenerSaldo(String user) {
+		try {
+			PreparedStatement psSaldo= conexionBBDD.prepareStatement("SELECT saldo from usuario where nombre=?;");
+			psSaldo.setString(1, user);
+			ResultSet rsSaldo= psSaldo.executeQuery();
+			while(rsSaldo.next()) {
+				saldo=rsSaldo.getDouble("saldo");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bienvenida.setTxtSaldo("Saldo: "+saldo+" €");
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+		//Hago una consulta para modificar el saldo en la bbdd
+		try {
+			PreparedStatement psModSaldo= conexionBBDD.prepareStatement("UPDATE usuario SET saldo = ? WHERE usuario.nombre = ?;");
+			psModSaldo.setDouble(1, saldo);
+			psModSaldo.setString(2, this.usr);
+			psModSaldo.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

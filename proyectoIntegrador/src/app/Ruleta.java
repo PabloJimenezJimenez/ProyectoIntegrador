@@ -1,6 +1,5 @@
 package app;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,6 +20,9 @@ public class Ruleta extends JFrame {
 	private JTextField cantIngresado;
 	private Controlador controlador;
 	private JTextField mensajesError;
+	private JLabel lblTxtSaldo;
+	private Modelo modelo;
+
 	public Ruleta() {
 		setTitle("Ruleta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -527,7 +529,24 @@ public class Ruleta extends JFrame {
 		btnApostar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				condicionBtnApostar(txtNumero, txtColor, txtNumeroGanador, txtColorGanador, Resultado);
-			}		
+				// condicional para añadir la apuesta a la bbdd
+				if (txtNumero.getText().equals("") || txtNumero.getText().equals("Impar")
+						|| txtNumero.getText().equals("Par")) {
+					if (!txtColor.getText().equals("")) {
+						controlador.apuestaRuleta(txtColor.getText(), Integer.parseInt(txtNumeroGanador.getText()),
+								txtColorGanador.getText(), Double.parseDouble(cantIngresado.getText()));
+
+					} else {
+						controlador.apuestaRuleta(txtNumero.getText(), Integer.parseInt(txtNumeroGanador.getText()),
+								txtColorGanador.getText(), Double.parseDouble(cantIngresado.getText()));
+					}
+				} else {
+					controlador.apuestaRuleta(Integer.parseInt(txtNumero.getText()), txtColor.getText(),
+							Integer.parseInt(txtNumeroGanador.getText()), txtColorGanador.getText(),
+							Double.parseDouble(cantIngresado.getText()));
+
+				}
+			}
 		});
 		btnApostar.setBackground(new Color(89, 116, 190));
 		btnApostar.setBounds(731, 388, 85, 39);
@@ -581,13 +600,17 @@ public class Ruleta extends JFrame {
 		cantIngresado.setBounds(622, 385, 79, 39);
 		contentPane.add(cantIngresado);
 		cantIngresado.setColumns(10);
-		
+
 		mensajesError = new JTextField();
 		mensajesError.setEditable(false);
 		mensajesError.setBounds(506, 340, 303, 20);
 		mensajesError.setVisible(false);
 		contentPane.add(mensajesError);
 		mensajesError.setColumns(10);
+
+		lblTxtSaldo = new JLabel("New label");
+		lblTxtSaldo.setBounds(625, 450, 191, 14);
+		contentPane.add(lblTxtSaldo);
 	}
 
 	// funcion numero aletorio
@@ -603,13 +626,18 @@ public class Ruleta extends JFrame {
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
-	private void condicionBtnApostar(JLabel txtNumero, JLabel txtColor, JLabel txtNumeroGanador,
-			JLabel txtColorGanador, JLabel Resultado) {
-		if (cantIngresado.getText().startsWith("0")|| cantIngresado.getText().equals("")) {
+
+	private void condicionBtnApostar(JLabel txtNumero, JLabel txtColor, JLabel txtNumeroGanador, JLabel txtColorGanador,
+			JLabel Resultado) {
+		if (cantIngresado.getText().startsWith("0") || cantIngresado.getText().equals("")) {
 			mensajesError.setText("Introduzca una cantidad valida");
 			mensajesError.setBackground(Color.RED);
 			mensajesError.setVisible(true);
 
+		} else if (Double.parseDouble(cantIngresado.getText()) > modelo.getSaldo()) {
+			mensajesError.setText("Saldo insuficiente");
+			mensajesError.setBackground(Color.RED);
+			mensajesError.setVisible(true);
 		} else {
 			mensajesError.setVisible(false);
 			// condicion que si no hay selecionado ningun numero y ningun color
@@ -628,10 +656,10 @@ public class Ruleta extends JFrame {
 					txtNumeroGanador.setText("" + numero);
 					txtColorGanador.setText("Verde");
 					// color negro
-				} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9
-						|| numero == 10 || numero == 11 || numero == 13 || numero == 15 || numero == 17
-						|| numero == 20 || numero == 22 || numero == 24 || numero == 26 || numero == 28
-						|| numero == 29 || numero == 31 || numero == 33 || numero == 35) {
+				} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9 || numero == 10
+						|| numero == 11 || numero == 13 || numero == 15 || numero == 17 || numero == 20 || numero == 22
+						|| numero == 24 || numero == 26 || numero == 28 || numero == 29 || numero == 31 || numero == 33
+						|| numero == 35) {
 					txtNumeroGanador.setText("" + numero);
 					txtColorGanador.setText("Negro");
 				}
@@ -644,12 +672,29 @@ public class Ruleta extends JFrame {
 				if (txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText())
 						|| txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
 					Resultado.setText("Ganador");
+					// Modifico el saldo del usuario
+					double apGanada = Double.parseDouble(cantIngresado.getText()) * 1.5;
+					apGanada = Math.round(apGanada * 100);
+					apGanada /= 100;
+					controlador.modificarSaldo(apGanada);
 				} else if ((numero % 2) != 0 && txtNumero.getText().equals("Impar")) {
 					Resultado.setText("Ganador");
+					// Modifico el saldo del usuario
+					double apGanada = Double.parseDouble(cantIngresado.getText()) * 1.5;
+					apGanada = Math.round(apGanada * 100);
+					apGanada /= 100;
+					controlador.modificarSaldo(apGanada);
 				} else if ((numero % 2) == 0 && txtNumero.getText().equals("Par")) {
 					Resultado.setText("Ganador");
+					// Modifico el saldo del usuario
+					double apGanada = Double.parseDouble(cantIngresado.getText()) * 1.5;
+					apGanada = Math.round(apGanada * 100);
+					apGanada /= 100;
+					controlador.modificarSaldo(apGanada);
 				} else {
 					Resultado.setText("Perdedor");
+					// Modifico el saldo del usuario
+					controlador.modificarSaldo(-Double.parseDouble(cantIngresado.getText()));
 				}
 			}
 			// condicion que si hay selecionado un numero y un color
@@ -661,10 +706,10 @@ public class Ruleta extends JFrame {
 					txtNumeroGanador.setText("" + numero);
 					txtColorGanador.setText("Verde");
 					// color negro
-				} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9
-						|| numero == 10 || numero == 11 || numero == 13 || numero == 15 || numero == 17
-						|| numero == 20 || numero == 22 || numero == 24 || numero == 26 || numero == 28
-						|| numero == 29 || numero == 31 || numero == 33 || numero == 35) {
+				} else if (numero == 1 || numero == 3 || numero == 5 || numero == 7 || numero == 9 || numero == 10
+						|| numero == 11 || numero == 13 || numero == 15 || numero == 17 || numero == 20 || numero == 22
+						|| numero == 24 || numero == 26 || numero == 28 || numero == 29 || numero == 31 || numero == 33
+						|| numero == 35) {
 					txtNumeroGanador.setText("" + numero);
 					txtColorGanador.setText("Negro");
 				}
@@ -677,11 +722,25 @@ public class Ruleta extends JFrame {
 				if (txtNumero.getText().equalsIgnoreCase(txtNumeroGanador.getText())
 						&& txtColor.getText().equalsIgnoreCase(txtColorGanador.getText())) {
 					Resultado.setText("Ganador");
+					// Modifico el saldo del usuario
+					double apGanada = Double.parseDouble(cantIngresado.getText()) * 2;
+					controlador.modificarSaldo(apGanada);
 				} else {
 					Resultado.setText("Perdedor");
+					// Modifico el saldo del usuario
+					controlador.modificarSaldo(-Double.parseDouble(cantIngresado.getText()));
 				}
 			}
 
 		}
 	}
+
+	public void setLblTxtSaldo(String lblTxtSaldo) {
+		this.lblTxtSaldo.setText(lblTxtSaldo);
+	}
+
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
 }

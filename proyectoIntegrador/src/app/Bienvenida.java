@@ -140,6 +140,12 @@ public class Bienvenida extends JFrame {
 	public void setTxtSaldo(String txtSaldo) {
 		this.txtSaldo.setText(txtSaldo); 
 	}
+	
+	
+	public JTextField getTxtSaldo() {
+		return txtSaldo;
+	}
+
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;

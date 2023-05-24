@@ -27,8 +27,11 @@ public class ApuestasDep extends JFrame {
 	private JLabel cuotaProrroga;
 	private JLabel lblPartido;
 	private double cantApuesta;
+	private JLabel lblSaldoApuestas;
+	
 	public ApuestasDep() {
 		
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -39,7 +42,7 @@ public class ApuestasDep extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("PARTIDO", SwingConstants.CENTER);
-		lblNewLabel.setBounds(187, 41, 67, 23);
+		lblNewLabel.setBounds(185, 41, 67, 23);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnAnt = new JButton("Anterior");
@@ -142,7 +145,7 @@ public class ApuestasDep extends JFrame {
 				}
 			}
 		});
-		prorroga.setBounds(173, 234, 106, 20);
+		prorroga.setBounds(166, 234, 106, 20);
 		prorroga.setVisible(false);
 		contentPane.add(prorroga);
 		prorroga.setColumns(10);
@@ -151,13 +154,15 @@ public class ApuestasDep extends JFrame {
 		btnGuardarApuesta.setBackground(new Color(89, 116, 190));
 		btnGuardarApuesta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Condicional para saber que textField esta relleno
 				if(!apuestaLocal.getText().equals("")) {
 					double cantidad= Double.parseDouble(apuestaLocal.getText());
 					double cuota= Double.parseDouble(cuotaLocal.getText());
-					cantApuesta= cantidad*cuota;
+					/*cantApuesta= cantidad*cuota;
 					double salida= Math.round(cantApuesta*100);
 					cantApuesta=salida/100;
-					System.out.println(cantApuesta);
+					System.out.println(cantApuesta);*/
+					controlador.comprobarApuesta(cuota);
 					apuestaLocal.setText("");
 					controlador.pantallaAnterior();
 					
@@ -202,8 +207,18 @@ public class ApuestasDep extends JFrame {
 		cuotaProrroga.setBounds(114, 237, 48, 14);
 		contentPane.add(cuotaProrroga);
 		
+		lblSaldoApuestas = new JLabel("Saldo:",SwingConstants.CENTER);
+		lblSaldoApuestas.setBounds(162, 15, 113, 14);
+		contentPane.add(lblSaldoApuestas);
+		
 		
 	}
+	
+	
+	public void setLblSaldoApuestas(String lblSaldoApuestas) {
+		this.lblSaldoApuestas.setText(lblSaldoApuestas);
+	}
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -220,6 +235,4 @@ public class ApuestasDep extends JFrame {
 	public void setCuotaProrroga(String cuotaProrroga) {
 		this.cuotaProrroga.setText(cuotaProrroga);
 	}
-	
-	
 }

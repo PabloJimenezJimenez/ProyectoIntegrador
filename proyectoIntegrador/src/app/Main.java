@@ -28,6 +28,7 @@ public class Main {
 		miModelo.setApuestasDep(apuestas);
 		miModelo.setPantallaApuestas(pantalla);
 		miModelo.setBienvenida(miBienvenida);
+		miModelo.setRuleta(ruleta);
 		
 		miVista.setModelo(miModelo);
 		miVista.setControlador(miControlador);
@@ -45,6 +46,7 @@ public class Main {
 		menuCasino.setControlador(miControlador);
 		
 		ruleta.setControlador(miControlador);
+		ruleta.setModelo(miModelo);
 		
 		miVista.setVisible(true);
 		

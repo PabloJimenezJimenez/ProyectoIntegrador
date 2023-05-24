@@ -2,6 +2,7 @@ package app;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -22,6 +23,7 @@ public class PantallaApuestas extends JFrame {
 	private JButton btnApuesta5;
 	private JButton btnApuesta6;
 	private JButton btnApuesta7;
+	private JLabel lblTxtSaldo;
 
 	public PantallaApuestas() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,7 +44,7 @@ public class PantallaApuestas extends JFrame {
 			}
 		});
 		btnApuesta1.setBackground(new Color(89, 116, 190));
-		btnApuesta1.setBounds(36, 47, 281, 23);
+		btnApuesta1.setBounds(78, 47, 281, 23);
 		contentPane.add(btnApuesta1);
 		
 		btnApuesta2 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
@@ -53,7 +55,7 @@ public class PantallaApuestas extends JFrame {
 			}
 		});
 		btnApuesta2.setBackground(new Color(89, 116, 190));
-		btnApuesta2.setBounds(36, 71, 281, 23);
+		btnApuesta2.setBounds(78, 71, 281, 23);
 		contentPane.add(btnApuesta2);
 		
 		btnApuesta3 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
@@ -64,7 +66,7 @@ public class PantallaApuestas extends JFrame {
 			}
 		});
 		btnApuesta3.setBackground(new Color(89, 116, 190));
-		btnApuesta3.setBounds(36, 95, 281, 23);
+		btnApuesta3.setBounds(78, 95, 281, 23);
 		contentPane.add(btnApuesta3);
 		
 		btnApuesta4 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
@@ -76,7 +78,7 @@ public class PantallaApuestas extends JFrame {
 			
 		});
 		btnApuesta4.setBackground(new Color(89, 116, 190));
-		btnApuesta4.setBounds(36, 119, 281, 23);
+		btnApuesta4.setBounds(78, 119, 281, 23);
 		contentPane.add(btnApuesta4);
 		
 		btnApuesta5 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
@@ -87,7 +89,7 @@ public class PantallaApuestas extends JFrame {
 			}
 		});
 		btnApuesta5.setBackground(new Color(89, 116, 190));
-		btnApuesta5.setBounds(36, 143, 281, 23);
+		btnApuesta5.setBounds(78, 143, 281, 23);
 		contentPane.add(btnApuesta5);
 		
 		btnApuesta6 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
@@ -98,7 +100,7 @@ public class PantallaApuestas extends JFrame {
 			}
 		});
 		btnApuesta6.setBackground(new Color(89, 116, 190));
-		btnApuesta6.setBounds(36, 167, 281, 23);
+		btnApuesta6.setBounds(78, 167, 281, 23);
 		contentPane.add(btnApuesta6);
 		
 		btnApuesta7 = new JButton("ANDALUS EFES – MACABI TEL AVIV ");
@@ -109,7 +111,7 @@ public class PantallaApuestas extends JFrame {
 			}
 		});
 		btnApuesta7.setBackground(new Color(89, 116, 190));
-		btnApuesta7.setBounds(36, 191, 281, 23);
+		btnApuesta7.setBounds(78, 191, 281, 23);
 		contentPane.add(btnApuesta7);
 		
 		JButton btnAtras = new JButton("Atrás");
@@ -121,6 +123,10 @@ public class PantallaApuestas extends JFrame {
 		btnAtras.setBackground(new Color(86, 116, 190));
 		btnAtras.setBounds(10, 10, 85, 21);
 		contentPane.add(btnAtras);
+		
+		lblTxtSaldo = new JLabel("New label",SwingConstants.CENTER);
+		lblTxtSaldo.setBounds(295, 13, 133, 14);
+		contentPane.add(lblTxtSaldo);
 	}
 
 	//genero los getter y setter 
@@ -181,6 +187,11 @@ public class PantallaApuestas extends JFrame {
 
 	public String getBtnApuesta7() {
 		return btnApuesta7.getText();
+	}
+	
+	
+	public void setLblTxtSaldo(String lblTxtSaldo) {
+		this.lblTxtSaldo.setText(lblTxtSaldo); 
 	}
 
 	public void generarJornada(HashMap<Integer, String> partidos) {

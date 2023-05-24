@@ -15,13 +15,16 @@ public class Modelo {
 	private ApuestasDep apuestasDep;
 	private PantallaApuestas pantallaApuestas;
 	private Bienvenida bienvenida;
+	private Ruleta ruleta;
 	private String usr;
 	private String pswd;
 	private String resultado;
 	private int fallos;
 	private Connection conexionBBDD;
 	private double saldo;
-
+	private int id_usuario;
+	private int id_partido;
+	
 	public Modelo() {
 		this.usr = "";
 		this.pswd = "";
@@ -48,6 +51,10 @@ public class Modelo {
 	
 	public void setBienvenida(Bienvenida bienvenida) {
 		this.bienvenida = bienvenida;
+	}
+	
+	public void setRuleta(Ruleta ruleta) {
+		this.ruleta = ruleta;
 	}
 
 	public void login(String usr, String contraseña) {
@@ -87,7 +94,7 @@ public class Modelo {
 
 	public void setUsr(String usr) {
 		try {
-			PreparedStatement cambioUsr = conexionBBDD.prepareStatement("update usuarios set nombre=? where nombre=?");
+			PreparedStatement cambioUsr = conexionBBDD.prepareStatement("update usuario set nombre=? where nombre=?");
 			cambioUsr.setString(1, usr);// Nuevo nombre de usuario
 			cambioUsr.setString(2, this.usr);// Antiguo nombre
 			this.usr = usr;// Modifico el valor de usr.
@@ -101,7 +108,7 @@ public class Modelo {
 
 	public void setContraseña(String pswd) {
 		try {
-			PreparedStatement cambioPswd = conexionBBDD.prepareStatement("update usuarios set passwd=? where passwd=?");
+			PreparedStatement cambioPswd = conexionBBDD.prepareStatement("update usuario set passwd=? where passwd=?");
 			cambioPswd.setString(1, pswd);// Nueva contraseña de usuario
 			cambioPswd.setString(2, this.pswd);// Antigua contraseña
 			this.pswd = pswd;// Modifico el valor de usr.
@@ -305,7 +312,14 @@ public class Modelo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//Modifico el textField de saldo en la pantalla bienvenida
 		bienvenida.setTxtSaldo("Saldo: "+saldo+" €");
+		//Modifico el lbl de saldo en la pantalla de apuestasDep
+		apuestasDep.setLblSaldoApuestas("Saldo: "+saldo+" €");
+		//Modifico el lbl de saldo en la pantalla pantallaApuesta
+		pantallaApuestas.setLblTxtSaldo("Saldo: "+saldo+" €");
+		//Modifico el lbl de saldo de la ruleta
+		ruleta.setLblTxtSaldo("Saldo: "+saldo+" €");
 	}
 
 	public double getSaldo() {
@@ -321,9 +335,75 @@ public class Modelo {
 			psModSaldo.setString(2, this.usr);
 			psModSaldo.executeUpdate();
 		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	public void setIdUsuario() {
+		try {
+			PreparedStatement psGetId= conexionBBDD.prepareStatement("SELECT id_usuario from usuario where nombre=?");
+			psGetId.setString(1,usr);
+			ResultSet rsGetId=psGetId.executeQuery();
+			while(rsGetId.next()) {
+				this.id_usuario=rsGetId.getInt("id_usuario");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void setApuestaBBDD(int numUsuario, String colorUsuario, int numGanador, String colorGanador,
+			double apuestaRelalizada) {
+		try {
+			PreparedStatement psAddApuestaCasino=conexionBBDD.prepareStatement("INSERT into casino(numGanador,colorGanador,numUsuario,colorUsuario,apuestaRealizada,id_usuario) VALUES (?,?,?,?,?,?)");
+			psAddApuestaCasino.setInt(1, numGanador);
+			psAddApuestaCasino.setString(2, colorGanador);
+			psAddApuestaCasino.setInt(3, numUsuario);
+			psAddApuestaCasino.setString(4, colorUsuario);
+			psAddApuestaCasino.setDouble(5, apuestaRelalizada);
+			psAddApuestaCasino.setInt(6, id_usuario);
+			psAddApuestaCasino.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void setApuestaBBDD(String colorUsuario, int numGanador, String colorGanador,
+			double apuestaRelalizada) {
+		try {
+			PreparedStatement psAddApuestaCasino = conexionBBDD.prepareStatement("INSERT into casino(numGanador,colorGanador,colorUsuario,apuestaRealizada,id_usuario) VALUES (?,?,?,?,?)");
+			psAddApuestaCasino.setInt(1, numGanador);
+			psAddApuestaCasino.setString(2, colorGanador);
+			psAddApuestaCasino.setString(3, colorUsuario);
+			psAddApuestaCasino.setDouble(4, apuestaRelalizada);
+			psAddApuestaCasino.setInt(5, id_usuario);
+			psAddApuestaCasino.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	}
+
+	public void SetId_partido(String eqLocal, String eqVis) {
+		try {
+			PreparedStatement psGetId= conexionBBDD.prepareStatement("SELECT codigo from partidos WHERE equipo_local=? AND equipo_visitante=? AND temporada='99/00'");
+			psGetId.setString(1, eqLocal);
+			psGetId.setString(2, eqVis);
+			ResultSet rsGetid=psGetId.executeQuery();
+			while(rsGetid.next()) {
+				this.id_partido=rsGetid.getInt("codigo");
+			}
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	public int getId_partido() {
+		return id_partido;
+	}
+	
 }

@@ -8,7 +8,7 @@ public class Controlador {
 	private Ajustes config;
 	private PantallaApuestas pantallaApuesta;
 	private ApuestasDep apuestas;
-	private PantallaEstadisticas estadisticas;
+	private Estadisticas estadisticas;
 	
 	
 	public void setVista(Login vista) {
@@ -95,16 +95,23 @@ public class Controlador {
 		miBienvenida.setVisible(true);
 		estadisticas.setVisible(false);
 	}
-	public void setEstadisticas(PantallaEstadisticas estadisticas) {
+	public void setEstadisticas(Estadisticas estadisticas) {
 		this.estadisticas = estadisticas;
+		estadisticas.setVisible(false);
+		
 	}
-	public void pEstadisticas() {
+	public void estadisticas() {
 		miBienvenida.setVisible(false);
 		estadisticas.setVisible(true);
 		
 	}
 	
-	
+	public void volverEstadisticas() {
+		
+		miBienvenida.setVisible(true);
+		estadisticas.setVisible(false);
+		
+	}
 	
 	
 }

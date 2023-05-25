@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 @SuppressWarnings("serial")
+
 public class Bienvenida extends JFrame {
 
 	private JPanel contentPane;
@@ -54,7 +55,7 @@ public class Bienvenida extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//accedera a las estadisticas de los equipos de la BBDD que será en la 
 				//proxima entrega 
-				controlador.pEstadisticas();
+				controlador.estadisticas();
 			}
 		});
 		btnEstadisticas.setForeground(new Color(255, 255, 255));

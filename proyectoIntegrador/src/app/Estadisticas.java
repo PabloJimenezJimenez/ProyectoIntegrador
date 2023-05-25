@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -18,24 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.AbstractTableModel;
-import java.awt.Font;
 
-public  class PantallaEstadisticas {
+import app.PantallaEstadisticas.ResultSetModeloTabla;
 
-	private Controlador miControlador;
-	
-	/*public static void main(String[] args) {
-		
-		MarcoDatosBBDD marco = new MarcoDatosBBDD();
-		marco.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-	}*/
-
-
-
-
-class MarcoDatosBBDD extends JFrame{
+public class Estadisticas extends JFrame{
 	
 	private JComboBox nombreTablas;
 	private JTextField busqueda;
@@ -45,13 +30,19 @@ class MarcoDatosBBDD extends JFrame{
 	private DatabaseMetaData datosBBDD;
 	private ResultSetModeloTabla modelo;
 	private Statement st;
-	
-	
-	public MarcoDatosBBDD() {
+	private Controlador miControlador;
+	private JButton btnAtras;
+
+	public void setMiControlador(Controlador miControlador) {
+		this.miControlador = miControlador;
+	}
+
+	public Estadisticas() {
+		
 		setTitle("DAtos tablas BBDD");
 		setBounds(300,300,800,400);
 		BorderLayout milayout = new BorderLayout();
-		setLayout(milayout);
+		getContentPane().setLayout(milayout);
 		
 		busqueda = new JTextField(20);
 		JPanel pnlNorte = new JPanel();
@@ -95,12 +86,13 @@ class MarcoDatosBBDD extends JFrame{
 					rs = st.executeQuery(sql);
 					
 					
-					modelo = new ResultSetModeloTabla(rs);
+					//modelo = new ResultSetModeloTabla(rs);
+					//modelo = new ResultSetModeloTabla(rs);
 					tabla.setModel(modelo);
 					
 					
 					
-					add(scroll, BorderLayout.CENTER);
+					getContentPane().add(scroll, BorderLayout.CENTER);
 					validate(); //para que pinte la tabla
 					
 					
@@ -154,12 +146,12 @@ class MarcoDatosBBDD extends JFrame{
 					st = miConexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 					rs = st.executeQuery(sql);
 					
-					modelo = new ResultSetModeloTabla(rs);
+					//modelo = new ResultSetModeloTabla(rs);
 					tabla.setModel(modelo);
 					
 					
 					
-					add(scroll, BorderLayout.CENTER);
+					getContentPane().add(scroll, BorderLayout.CENTER);
 					validate(); //para que pinte la tabla
 				} catch (SQLException e1) {
 					
@@ -171,96 +163,22 @@ class MarcoDatosBBDD extends JFrame{
 			
 		});
 		
+		btnAtras = new JButton("Atrás");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miControlador.volverEstadisticas();
+			}
+		});
+		pnlNorte.add(btnAtras);
+		
 		
 		pnlNorte.add(nombreTablas);
 		pnlNorte.add(busqueda);
 		pnlNorte.add(ejecutar);
-		add(pnlNorte, BorderLayout.NORTH);
+		getContentPane().add(pnlNorte, BorderLayout.NORTH);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 }
-
-class ResultSetModeloTabla extends AbstractTableModel{
-
-	private ResultSet rsRegistros;
-	private ResultSetMetaData rsMeta;
 	
-	public ResultSetModeloTabla(ResultSet rs) {
-		this.rsRegistros=rs;
-		
-		try {
-			this.rsMeta = rsRegistros.getMetaData();
-		} catch (SQLException e) {
-		
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public int getRowCount() {
 
-		try {
-			rsRegistros.last();
-			return rsRegistros.getRow();
-			
-			
-		} catch (SQLException e) {
-		
-			e.printStackTrace();
-			return 0;
-		}
-		
-	}
-
-	@Override
-	public int getColumnCount() {
-		
-		try {
-			return rsMeta.getColumnCount();
-			
-			
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			return 0;
-		}
-	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		
-		try {
-			rsRegistros.absolute(rowIndex+1);
-			return rsRegistros.getObject(columnIndex+1);
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
-
-	@Override
-
-	public String getColumnName(int column) {
-
-	try {
-
-	return rsMeta.getColumnName(column+1);
-
-	} catch (SQLException e) {
-
-		e.printStackTrace();
-
-	return null;
-
-		}
-	
-	}
-
-}
-
-}

@@ -11,7 +11,7 @@ public class Main {
 		ApuestasDep apuestas = new ApuestasDep();
 		Bienvenida miBienvenida = new Bienvenida();
 		Ajustes config = new Ajustes();
-		PantallaEstadisticas estadisticas = new PantallaEstadisticas();
+		Estadisticas misEstadisticas = new Estadisticas();
 		
 		//presentamos los setters al controlador
 		
@@ -22,7 +22,7 @@ public class Main {
 		miControlador.setApuestas(apuestas);
 		miControlador.setPantallaApuesta(pantalla);
 		miControlador.setConfig(config);
-		miControlador.setEstadisticas(estadisticas);
+		miControlador.setEstadisticas(misEstadisticas);
 		
 		
 		miModelo.setMiVista(miVista);
@@ -38,7 +38,7 @@ public class Main {
 		
 		pantalla.setControladoor(miControlador);
 		
-		estadisticas.setMicontrolador(miControlador);
+		misEstadisticas.setMiControlador(miControlador);
 		miVista.setVisible(true);
 		
 		

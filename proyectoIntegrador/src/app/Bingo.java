@@ -431,10 +431,11 @@ public class Bingo extends JFrame {
 		JButton btnLinea = new JButton("Linea");
 		btnLinea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int numerosFila;
 					//for que analiza las filas
 				for (int i = 0; i < numeros.length; i++) {
 					
-					
+					numerosFila = i;
 					for (int j = 0; j < numeros[i].length; j++) {
 						if(botones[i][j].getBackground().equals(Color.RED)) {
 							contColumna++;
@@ -443,7 +444,7 @@ public class Bingo extends JFrame {
 					if(contColumna==5|| contColumna==10 || contColumna==15 || contColumna==20 || contColumna==25) {
 						contFila++;
 						for (int j = 0; j < numeros.length; j++) {
-							botones[i][j].setBackground(new Color(249,13,14));
+							botones[numerosFila][j].setBackground(new Color(249,13,14));
 						}
 					}
 				}
@@ -451,7 +452,7 @@ public class Bingo extends JFrame {
 				//for que analiza las columnas
 				for (int i = 0; i < numeros.length; i++) {
 					for (int j = 0; j < numeros[i].length; j++) {
-						
+						numerosFila=j;
 						for (int k = 0; k < numeros.length; k++) {
 							if(botones[k][j].getBackground().equals(Color.RED)) {
 								
@@ -461,7 +462,7 @@ public class Bingo extends JFrame {
 						if(contColumna==5|| contColumna==10 || contColumna==15 || contColumna==20 || contColumna==25) {
 							contFila++;
 							for (int k = 0; k < numeros.length; k++) {
-								botones[k][j].setBackground(new Color(249,13,14));
+								botones[numerosFila][j].setBackground(new Color(249,13,14));
 							}
 						}
 						

@@ -9,8 +9,17 @@ public class Controlador {
 	private PantallaApuestas pantallaApuesta;
 	private ApuestasDep apuestas;
 	private Estadisticas estadisticas;
+
+	private MenuCasino menuCasino;
+	private Ruleta ruleta;
+
 	
-	
+	public void setMenuCasino(MenuCasino menuCasino) {
+		this.menuCasino = menuCasino;
+	}
+	public void setRuleta(Ruleta ruleta) {
+		this.ruleta = ruleta;
+	}
 	public void setVista(Login vista) {
 		this.vista = vista;
 	}
@@ -23,6 +32,7 @@ public class Controlador {
 		String pass = vista.getPass();
 		miBienvenida.setTxtUsuario(vista.getUsr());
 		modelo.login(user,pass);
+		modelo.generarPartido();
 		
 	}
 	public void setMiBienvenida(Bienvenida miBienvenida) {
@@ -31,17 +41,12 @@ public class Controlador {
 	
 	//mostraremos la bienvenida y ocultaremos el login
 	public void bienvinida() {
-		
+		modelo.setIdUsuario();
 		vista.setVisible(false);
 		miBienvenida.setVisible(true);
 	}
 	
 	//actualizaremos el usuario con el nombre que meta
-	public void cambiarUsr() {
-		//config = new Ajustes();
-		String nombre = config.getTxtUsuario();
-		miBienvenida.setTxtUsuario(nombre);
-	}
 	public void setConfig(Ajustes config) {
 		this.config = config;
 	}
@@ -88,6 +93,75 @@ public class Controlador {
 		miBienvenida.setTxtUsuario(nuevoNombre);
 		modelo.setUsr(nuevoNombre);
 		modelo.setContraseña(newPasswd);
+		
+	}
+	public void pantallaAnterior() {
+		apuestas.setVisible(false);
+		pantallaApuesta.setVisible(true);
+		
+	}
+	public void cambioPantallaMenuRuleta() {
+		miBienvenida.setVisible(false);
+		menuCasino.setVisible(true);
+		
+	}
+	
+	public void cambioPantallaRuleta() {
+		menuCasino.setVisible(false);
+		ruleta.setVisible(true);
+	}
+	public void menuCasinoBienvenida() {
+		menuCasino.setVisible(false);
+		miBienvenida.setVisible(true);
+		
+	}
+	public void ruletaMenuCasino() {
+		ruleta.setVisible(false);
+		menuCasino.setVisible(true);
+		
+	}
+	//Escribo el nombre de los equipos del partido en apuestas
+	public void MoverDatos(String partido) {
+		apuestas.setLblPartido(partido);
+		String equipos[]=partido.split("-");
+		//Saco los equipos para generar la cuota
+		String eqLocal=equipos[0];
+		String eqVis= equipos[1];
+		System.out.println(eqLocal);
+		System.out.println(eqVis);
+		modelo.SetId_partido(eqLocal, eqVis);
+		modelo.generarCuota(eqLocal, eqVis);
+		
+	}
+	public void modificarSaldo(double cant) {
+		double saldo=(modelo.getSaldo()+cant);
+		if(saldo <0) {
+			miBienvenida.setTxtSaldo("Saldo negativo");
+		}else {
+			//Modifico el textfield con el saldo de la pantalla Bienvenida
+			miBienvenida.setTxtSaldo("Saldo: "+saldo+" €");
+			//Modifico el lbl de saldo en la pantalla de apuestasDep
+			apuestas.setLblSaldoApuestas("Saldo: "+saldo+" €");
+			//Modifico el lbl de saldo en la pantalla pantallaApuesta
+			pantallaApuesta.setLblTxtSaldo("Saldo: "+saldo+" €");
+			//Modifico el lbSaldo de la ruleta
+			ruleta.setLblTxtSaldo("Saldo: "+saldo+" €");
+			//Modifico el valor del saldo
+			modelo.setSaldo(saldo);
+		}
+		
+		
+	}
+	public void apuestaRuleta(int numUsuario, String colorUsuario, int numGanador, String colorGanador, double apuestaRelalizada) {
+		modelo.setApuestaBBDD(numUsuario, colorUsuario,numGanador, colorGanador,apuestaRelalizada);
+		
+	}
+	public void apuestaRuleta(String colorUsuario, int numGanador, String colorGanador, double apuestaRelalizada) {
+		modelo.setApuestaBBDD(colorUsuario,numGanador, colorGanador,apuestaRelalizada);
+	}
+	public void comprobarApuesta(double cuota) {
+		int numPartido=modelo.getId_partido();
+		System.out.println(numPartido);
 		
 	}
 	

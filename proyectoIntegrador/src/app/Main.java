@@ -39,7 +39,7 @@ public class Main {
 		config.setMiContralador(miControlador);
 		
 		apuestas.setControlador(miControlador);
-		
+		apuestas.setModelo(miModelo);
 		
 		pantalla.setControladoor(miControlador);
 		

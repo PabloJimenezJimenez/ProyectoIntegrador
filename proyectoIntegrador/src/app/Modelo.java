@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+
 
 
 public class Modelo {
@@ -24,6 +27,8 @@ public class Modelo {
 	private double saldo;
 	private int id_usuario;
 	private int id_partido;
+	private JComboBox nombreTablas;
+	private JTextField busqueda;
 	
 	public Modelo() {
 		this.usr = "";
@@ -36,37 +41,11 @@ public class Modelo {
 		}
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/pablo
 	public void setMiVista(Login miVista) {
 		this.miVista = miVista;
 	}
-<<<<<<< HEAD
 
-	//comprobaremos el usuario y la contraseña
-	public void login(String usr,String contraseña) {
-		
-		if(this.usr.equals(usr) && this.contraseña.equals(contraseña)) {
-			resultado = "correcto";
-		}else {
-			
-			fallos++; 		
-			
-			if (fallos == 3) {
-				resultado = "Cerrar";
-			}else
-				resultado = "ERROR";
-			
-		}
-=======
->>>>>>> refs/remotes/origin/pablo
-	
-<<<<<<< HEAD
-		//llamamos al metodo que esta en el login
-		miVista.actualizar();
-=======
+
 	public void setApuestasDep(ApuestasDep apuestasDep) {
 		this.apuestasDep = apuestasDep;
 	}
@@ -113,7 +92,6 @@ public class Modelo {
 			e.printStackTrace();
 		}
 
->>>>>>> refs/remotes/origin/pablo
 	}
 
 	//generamos getters y setters
@@ -426,7 +404,7 @@ public class Modelo {
 				this.id_partido=rsGetid.getInt("codigo");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 	}
@@ -434,5 +412,6 @@ public class Modelo {
 	public int getId_partido() {
 		return id_partido;
 	}
+	
 	
 }

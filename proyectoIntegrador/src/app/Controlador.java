@@ -56,6 +56,10 @@ public class Controlador {
 	public void setApuestas(ApuestasDep apuestas) {
 		this.apuestas = apuestas;
 	}
+	
+	public void setEstadisticas(Estadisticas estadisticas) {
+		this.estadisticas = estadisticas;
+	}
 	public void pantallaApuestas() {
 		miBienvenida.setVisible(false);
 		pantallaApuesta.setVisible(true);
@@ -169,11 +173,7 @@ public class Controlador {
 		miBienvenida.setVisible(true);
 		estadisticas.setVisible(false);
 	}
-	public void setEstadisticas(Estadisticas estadisticas) {
-		this.estadisticas = estadisticas;
-		estadisticas.setVisible(false);
-		
-	}
+
 	public void estadisticas() {
 		miBienvenida.setVisible(false);
 		estadisticas.setVisible(true);
@@ -183,8 +183,7 @@ public class Controlador {
 	public void volverEstadisticas() {
 		
 		miBienvenida.setVisible(true);
-		estadisticas.setVisible(false);
-		
+		estadisticas.setVisible(false);		
 	}
 	
 	

@@ -1,10 +1,13 @@
 package app;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Modelo {
@@ -14,6 +17,7 @@ public class Modelo {
 	private PantallaApuestas pantallaApuestas;
 	private Bienvenida bienvenida;
 	private Ruleta ruleta;
+	private Estadisticas estadisticas;
 	private String usr;
 	private String pswd;
 	private String resultado;
@@ -24,6 +28,8 @@ public class Modelo {
 	private int id_partido;
 	private int puntLocal;
 	private int puntVis;
+	private DatabaseMetaData datosBBDD;
+	private ResultSet tablas;
 
 	public Modelo() {
 		this.usr = "";
@@ -31,6 +37,7 @@ public class Modelo {
 		this.fallos = 0;
 		try {
 			this.conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/nba", "root", "");
+			this.datosBBDD = conexionBBDD.getMetaData();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,6 +61,10 @@ public class Modelo {
 
 	public void setRuleta(Ruleta ruleta) {
 		this.ruleta = ruleta;
+	}
+	
+	public void setEstadisticas(Estadisticas estadisticas) {
+		this.estadisticas = estadisticas;
 	}
 
 	public void login(String usr, String contraseña) {
@@ -470,23 +481,23 @@ public class Modelo {
 
 	public void updateApuestasDep(double cantidad, String apuesta) {
 		String equipo;
-		try {	
-			
+		try {
+
 			if (apuesta.equals("apuestaLocal")) {
 				PreparedStatement psEqLocal = conexionBBDD
 						.prepareStatement("SELECT equipo_local from partidos WHERE codigo=?;");
 				psEqLocal.setInt(1, id_partido);
-				ResultSet rs= psEqLocal.executeQuery();
-				while(rs.next()) {
-					equipo=rs.getString("equipo_local");
+				ResultSet rs = psEqLocal.executeQuery();
+				while (rs.next()) {
+					equipo = rs.getString("equipo_local");
 				}
 			} else if (apuesta.equals("apuestaVisitante")) {
 				PreparedStatement psEqVis = conexionBBDD
 						.prepareStatement("SELECT equipo_visitante from partidos WHERE codigo=?;");
 				psEqVis.setInt(1, id_partido);
-				ResultSet rs= psEqVis.executeQuery();
-				while(rs.next()) {
-					equipo=rs.getString("equipo_visitante");
+				ResultSet rs = psEqVis.executeQuery();
+				while (rs.next()) {
+					equipo = rs.getString("equipo_visitante");
 				}
 			} else if (apuesta.equals("apuestaProrroga")) {
 
@@ -497,4 +508,64 @@ public class Modelo {
 		}
 	}
 
+	// Metodo que me devuelve un ArrayList con el nombre de las tablas
+	public ArrayList<String> nombreTablas() {
+		ArrayList<String> nombreTablas = new ArrayList<>();
+		try {
+			ResultSet rs = datosBBDD.getTables("nba", null, null, null);
+			while (rs.next()) {
+				nombreTablas.add(rs.getString("TABLE_NAME"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println(nombreTablas);
+		return nombreTablas;
+	}
+
+	public void buscarTablas(String tablaSeleccionada, String filtro) {
+		String sql="";
+		if (tablaSeleccionada.equals("estadisticas")) {
+			if (filtro.equals("99/00") || filtro.isEmpty()) {
+				sql = "SELECT * FROM " + tablaSeleccionada;
+			} else
+				sql = "SELECT * FROM estadisticas where temporada = '" + filtro + "'";
+
+		} else if (tablaSeleccionada.equals("equipos")) {
+			if (!filtro.isEmpty())
+				sql = "SELECT * FROM equipos where nombre = '" + filtro + "'";
+			else
+				sql = "SELECT * FROM " + tablaSeleccionada;
+		} else if (tablaSeleccionada.equals("jugadores")) {
+			if (filtro.equals("")) {
+				sql = "SELECT * FROM " + tablaSeleccionada;
+			} else {
+
+				sql = "SELECT * FROM  jugadores where Nombre_equipo= '" + filtro + "'";
+			}
+		} else if (tablaSeleccionada.equals("partidos")) {
+			if (!filtro.isEmpty())
+				sql = "SELECT * FROM partidos where temporada = '98/99' and equipo_local = '" + filtro + "'";
+			if (filtro.equals("99/00") || filtro.isEmpty()) {
+				sql = "SELECT * FROM " + tablaSeleccionada;
+			}
+		} else
+			sql = "SELECT * FROM " + tablaSeleccionada;
+		try {
+			Statement stBusqueda= conexionBBDD.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = stBusqueda.executeQuery(sql);
+			this.tablas=rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public ResultSet getTablas() {
+		return tablas;
+	}
+	
 }

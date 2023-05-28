@@ -1,5 +1,9 @@
 package app;
 
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
+
 public class Controlador {
 
 	private Login vista;
@@ -10,6 +14,7 @@ public class Controlador {
 	private ApuestasDep apuestas;
 	private MenuCasino menuCasino;
 	private Ruleta ruleta;
+	private Estadisticas estadisticas;
 
 	public void setMenuCasino(MenuCasino menuCasino) {
 		this.menuCasino = menuCasino;
@@ -25,6 +30,10 @@ public class Controlador {
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
+	}
+	
+	public void setEstadisticas(Estadisticas estadisticas) {
+		this.estadisticas = estadisticas;
 	}
 
 	public void login() {
@@ -213,5 +222,21 @@ public class Controlador {
 		//Lo añado a la bbdd
 		modelo.updateApuestasDep(cantidad,apuesta);
 	}
+
+	//Vuelvo a bienvenida
+	public void volverEstadisticas() {
+		estadisticas.setVisible(false);
+		miBienvenida.setVisible(true);
+		
+	}
+	//Cambio a la pantalla estadisticas
+	public void cambiarEstadisticas() {
+		miBienvenida.setVisible(false);
+		estadisticas.setOpcCombo(modelo.nombreTablas());
+		estadisticas.rellenarCombo();
+		estadisticas.setVisible(true);
+		
+	}
+	
 
 }

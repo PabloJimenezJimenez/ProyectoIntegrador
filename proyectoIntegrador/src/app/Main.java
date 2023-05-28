@@ -13,6 +13,7 @@ public class Main {
 		MenuCasino menuCasino= new MenuCasino();
 		Bienvenida miBienvenida = new Bienvenida();
 		Ajustes config = new Ajustes();
+		Estadisticas estadisticas= new Estadisticas();
 		
 		miControlador.setModelo(miModelo);
 		miControlador.setVista(miVista);
@@ -23,12 +24,14 @@ public class Main {
 		miControlador.setConfig(config);
 		miControlador.setMenuCasino(menuCasino);
 		miControlador.setRuleta(ruleta);
+		miControlador.setEstadisticas(estadisticas);
 		
 		miModelo.setMiVista(miVista);
 		miModelo.setApuestasDep(apuestas);
 		miModelo.setPantallaApuestas(pantalla);
 		miModelo.setBienvenida(miBienvenida);
 		miModelo.setRuleta(ruleta);
+		miModelo.setEstadisticas(estadisticas);
 		
 		miVista.setModelo(miModelo);
 		miVista.setControlador(miControlador);
@@ -47,6 +50,10 @@ public class Main {
 		
 		ruleta.setControlador(miControlador);
 		ruleta.setModelo(miModelo);
+		
+		
+		estadisticas.setMiControlador(miControlador);
+		estadisticas.setMiModelo(miModelo);
 		
 		miVista.setVisible(true);
 		

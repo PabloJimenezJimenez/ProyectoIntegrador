@@ -26,8 +26,9 @@ public class ApuestasDep extends JFrame {
 	private JLabel cotaVisitante;
 	private JLabel cuotaProrroga;
 	private JLabel lblPartido;
-	private double cantApuesta;
 	private JLabel lblSaldoApuestas;
+	private Modelo modelo;
+	private JTextField msjError;
 	
 	public ApuestasDep() {
 		
@@ -154,38 +155,34 @@ public class ApuestasDep extends JFrame {
 		btnGuardarApuesta.setBackground(new Color(89, 116, 190));
 		btnGuardarApuesta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				double saldo=modelo.getSaldo();
+				msjError.setVisible(false);
 				//Condicional para saber que textField esta relleno
-				if(!apuestaLocal.getText().equals("")) {
+				if(!apuestaLocal.getText().equals("") && (saldo > Double.parseDouble(apuestaLocal.getText()))) {
 					double cantidad= Double.parseDouble(apuestaLocal.getText());
 					double cuota= Double.parseDouble(cuotaLocal.getText());
-					/*cantApuesta= cantidad*cuota;
-					double salida= Math.round(cantApuesta*100);
-					cantApuesta=salida/100;
-					System.out.println(cantApuesta);*/
-					controlador.comprobarApuesta(cuota);
+					controlador.comprobarApuesta(cuota,cantidad,"apuestaLocal");
 					apuestaLocal.setText("");
 					controlador.pantallaAnterior();
 					
-				}else if(!apuestaVisitante.getText().equals("")) {
+				}else if(!apuestaVisitante.getText().equals("")&& (saldo > Double.parseDouble(apuestaVisitante.getText()))) {
 					double cantidad= Double.parseDouble(apuestaVisitante.getText());
 					double cuota= Double.parseDouble(cotaVisitante.getText());
-					cantApuesta= cantidad*cuota;
-					double salida= Math.round(cantApuesta*100);
-					cantApuesta=salida/100;
-					System.out.println(cantApuesta);
+					controlador.comprobarApuesta(cuota,cantidad,"apuestaVisitante");
 					apuestaVisitante.setText("");
 					controlador.pantallaAnterior();
 					
-				}else if(!prorroga.getText().equals("")) {
+				}else if(!prorroga.getText().equals("") && (saldo > Double.parseDouble(prorroga.getText()))) {
 					double cantidad= Double.parseDouble(prorroga.getText());
 					double cuota= Double.parseDouble(cuotaProrroga.getText());
-					cantApuesta= cantidad*cuota;
-					double salida= Math.round(cantApuesta*100);
-					cantApuesta=salida/100;
-					System.out.println(cantApuesta);
+					controlador.comprobarApuesta(cuota,cantidad,"apuestaProrroga");
 					prorroga.setText("");
 					controlador.pantallaAnterior();
 					
+				}else {
+					msjError.setText("Saldo inferior");
+					msjError.setVisible(true);
+					controlador.cambiarPantallaBienv();
 				}
 			}
 		});
@@ -211,6 +208,14 @@ public class ApuestasDep extends JFrame {
 		lblSaldoApuestas.setBounds(162, 15, 113, 14);
 		contentPane.add(lblSaldoApuestas);
 		
+		msjError = new JTextField();
+		msjError.setEditable(false);
+		msjError.setBackground(new Color(255, 0, 0));
+		msjError.setBounds(120, 135, 192, 23);
+		msjError.setVisible(false);
+		contentPane.add(msjError);
+		msjError.setColumns(10);
+		
 		
 	}
 	
@@ -235,4 +240,16 @@ public class ApuestasDep extends JFrame {
 	public void setCuotaProrroga(String cuotaProrroga) {
 		this.cuotaProrroga.setText(cuotaProrroga);
 	}
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
+
+	public void mostrarMsjError() {
+		msjError.setVisible(false);
+		apuestaLocal.setText("");
+		apuestaVisitante.setText("");
+		prorroga.setText("");
+	}
+	
 }

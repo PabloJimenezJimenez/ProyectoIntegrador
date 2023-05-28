@@ -19,7 +19,6 @@ public class Bienvenida extends JFrame {
 	private JTextField txtUsuario;
 	private JTextField txtSaldo; 
 	private JTextField textCant;
-
 	private Modelo modelo;
 	
 	
@@ -59,9 +58,8 @@ public class Bienvenida extends JFrame {
 		JButton btnEstadisticas = new JButton("ESTADISTICAS");
 		btnEstadisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//accedera a las estadisticas de los equipos de la BBDD que será en la 
-				//proxima entrega 
-				controlador.estadisticas();
+				controlador.cambiarEstadisticas();
+				modelo.nombreTablas();
 			}
 		});
 		btnEstadisticas.setForeground(new Color(255, 255, 255));
@@ -161,5 +159,4 @@ public class Bienvenida extends JFrame {
 	
 
  }
-
 

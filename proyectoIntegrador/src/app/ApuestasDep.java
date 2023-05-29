@@ -25,9 +25,14 @@ public class ApuestasDep extends JFrame {
 	private JLabel cuotaLocal;
 	private JLabel cotaVisitante;
 	private JLabel cuotaProrroga;
-	private double cantApuesta;
+	private JLabel lblPartido;
+	private JLabel lblSaldoApuestas;
+	private Modelo modelo;
+	private JTextField msjError;
+	
 	public ApuestasDep() {
 		
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -38,7 +43,7 @@ public class ApuestasDep extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("PARTIDO", SwingConstants.CENTER);
-		lblNewLabel.setBounds(187, 41, 67, 23);
+		lblNewLabel.setBounds(185, 41, 67, 23);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnAnt = new JButton("Anterior");
@@ -51,16 +56,14 @@ public class ApuestasDep extends JFrame {
 		btnAnt.setBounds(10, 11, 91, 23);
 		contentPane.add(btnAnt);
 		
-		JLabel lblPartido = new JLabel("REAL MADRID - VALENCIA", SwingConstants.CENTER);
+		lblPartido= new JLabel();
+		lblPartido.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPartido.setBounds(10, 77, 428, 14);
 		contentPane.add(lblPartido);
 		
 		JButton btnEquipoLocal = new JButton("Local");
 		btnEquipoLocal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*Pongo visible el JTextField para apuesta local
-				 * y escondo los otros dos
-				 */
 				apuestaLocal.setVisible(true);
 				prorroga.setVisible(false);
 				prorroga.setText("");
@@ -75,9 +78,6 @@ public class ApuestasDep extends JFrame {
 		JButton btnEquipoVisitante = new JButton("Visitante");
 		btnEquipoVisitante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*Pongo visible el JTextField para apuesta visitante
-				 * y escondo los otros dos
-				 */
 				apuestaLocal.setVisible(false);
 				apuestaLocal.setText("");
 				prorroga.setVisible(false);
@@ -92,9 +92,6 @@ public class ApuestasDep extends JFrame {
 		JButton btnProrroga = new JButton("Prorroga");
 		btnProrroga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*Pongo visible el JTextField para prorroga
-				 * y escondo los otros dos
-				 */
 				apuestaLocal.setVisible(false);
 				apuestaLocal.setText("");
 				prorroga.setVisible(true);
@@ -126,7 +123,6 @@ public class ApuestasDep extends JFrame {
 		apuestaVisitante.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				//Condicional para que solo se metan numeros
 				if((e.getKeyChar()>57 || e.getKeyChar()<48)&& e.getKeyChar() !=8) {
 					String mod= apuestaVisitante.getText();
 					mod= mod.substring(0,mod.length()-1);
@@ -143,7 +139,6 @@ public class ApuestasDep extends JFrame {
 		prorroga.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				//Condicional para que solo se metan numeros
 				if((e.getKeyChar()>57 || e.getKeyChar()<48)&& e.getKeyChar() !=8) {
 					String mod= prorroga.getText();
 					mod= mod.substring(0,mod.length()-1);
@@ -151,7 +146,7 @@ public class ApuestasDep extends JFrame {
 				}
 			}
 		});
-		prorroga.setBounds(173, 234, 106, 20);
+		prorroga.setBounds(166, 234, 106, 20);
 		prorroga.setVisible(false);
 		contentPane.add(prorroga);
 		prorroga.setColumns(10);
@@ -160,41 +155,34 @@ public class ApuestasDep extends JFrame {
 		btnGuardarApuesta.setBackground(new Color(89, 116, 190));
 		btnGuardarApuesta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Condicional para saber en que JTextField está introducida la cantidad 
-				if(!apuestaLocal.getText().equals("")) {
-					//Cantidad apostada
+				double saldo=modelo.getSaldo();
+				msjError.setVisible(false);
+				//Condicional para saber que textField esta relleno
+				if(!apuestaLocal.getText().equals("") && (saldo > Double.parseDouble(apuestaLocal.getText()))) {
 					double cantidad= Double.parseDouble(apuestaLocal.getText());
-					//Cuota
 					double cuota= Double.parseDouble(cuotaLocal.getText());
-					cantApuesta= cantidad*cuota;
-					double salida= Math.round(cantApuesta*100);
-					cantApuesta=salida/100;
-					System.out.println(cantApuesta);
-					/*Posteriormente introducire la variable cantApuesta en la base de datos*/
+					controlador.comprobarApuesta(cuota,cantidad,"apuestaLocal");
 					apuestaLocal.setText("");
-					//Vuelvo a la pantalla anterior
 					controlador.pantallaAnterior();
 					
-				}else if(!apuestaVisitante.getText().equals("")) {
+				}else if(!apuestaVisitante.getText().equals("")&& (saldo > Double.parseDouble(apuestaVisitante.getText()))) {
 					double cantidad= Double.parseDouble(apuestaVisitante.getText());
 					double cuota= Double.parseDouble(cotaVisitante.getText());
-					cantApuesta= cantidad*cuota;
-					double salida= Math.round(cantApuesta*100);
-					cantApuesta=salida/100;
-					System.out.println(cantApuesta);
+					controlador.comprobarApuesta(cuota,cantidad,"apuestaVisitante");
 					apuestaVisitante.setText("");
 					controlador.pantallaAnterior();
 					
-				}else if(!prorroga.getText().equals("")) {
+				}else if(!prorroga.getText().equals("") && (saldo > Double.parseDouble(prorroga.getText()))) {
 					double cantidad= Double.parseDouble(prorroga.getText());
 					double cuota= Double.parseDouble(cuotaProrroga.getText());
-					cantApuesta= cantidad*cuota;
-					double salida= Math.round(cantApuesta*100);
-					cantApuesta=salida/100;
-					System.out.println(cantApuesta);
+					controlador.comprobarApuesta(cuota,cantidad,"apuestaProrroga");
 					prorroga.setText("");
 					controlador.pantallaAnterior();
 					
+				}else {
+					msjError.setText("Saldo inferior");
+					msjError.setVisible(true);
+					controlador.cambiarPantallaBienv();
 				}
 			}
 		});
@@ -216,13 +204,52 @@ public class ApuestasDep extends JFrame {
 		cuotaProrroga.setBounds(114, 237, 48, 14);
 		contentPane.add(cuotaProrroga);
 		
+		lblSaldoApuestas = new JLabel("Saldo:",SwingConstants.CENTER);
+		lblSaldoApuestas.setBounds(162, 15, 113, 14);
+		contentPane.add(lblSaldoApuestas);
+		
+		msjError = new JTextField();
+		msjError.setEditable(false);
+		msjError.setBackground(new Color(255, 0, 0));
+		msjError.setBounds(120, 135, 192, 23);
+		msjError.setVisible(false);
+		contentPane.add(msjError);
+		msjError.setColumns(10);
+		
 		
 	}
 	
-	//Setter del controlador
+	
+	public void setLblSaldoApuestas(String lblSaldoApuestas) {
+		this.lblSaldoApuestas.setText(lblSaldoApuestas);
+	}
+
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
 	
+	public void setLblPartido(String partido) {
+		this.lblPartido.setText(partido);
+	}
+	public void setCuotaLocal(String cuotaLocal) {
+		this.cuotaLocal.setText(cuotaLocal);
+	}
+	public void setCuotaVisitante(String cotaVisitante) {
+		this.cotaVisitante.setText(cotaVisitante);
+	}
+	public void setCuotaProrroga(String cuotaProrroga) {
+		this.cuotaProrroga.setText(cuotaProrroga);
+	}
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
+
+	public void mostrarMsjError() {
+		msjError.setVisible(false);
+		apuestaLocal.setText("");
+		apuestaVisitante.setText("");
+		prorroga.setText("");
+	}
 	
 }

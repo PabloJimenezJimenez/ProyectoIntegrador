@@ -1,8 +1,7 @@
 package app;
 
-import java.util.ArrayList;
 
-import javax.swing.JComboBox;
+
 
 public class Controlador {
 

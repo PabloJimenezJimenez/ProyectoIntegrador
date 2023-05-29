@@ -480,7 +480,7 @@ public class Modelo {
 	}
 
 	public void updateApuestasDep(double cantidad, String apuesta) {
-		String equipo;
+		String equipo="";
 		try {
 
 			if (apuesta.equals("apuestaLocal")) {
@@ -500,8 +500,15 @@ public class Modelo {
 					equipo = rs.getString("equipo_visitante");
 				}
 			} else if (apuesta.equals("apuestaProrroga")) {
+					equipo="Prorroga";
 
 			}
+			PreparedStatement updateApuestasDep=conexionBBDD.prepareStatement("INSERT INTO apuestasdep(id_usuario,equipo,partido,cantApuesta) values(?,?,?,?);");
+			updateApuestasDep.setInt(1, id_usuario);
+			updateApuestasDep.setString(2, equipo);
+			updateApuestasDep.setInt(3, id_partido);
+			updateApuestasDep.setDouble(4, cantidad);
+			updateApuestasDep.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -550,8 +557,11 @@ public class Modelo {
 			if (filtro.equals("99/00") || filtro.isEmpty()) {
 				sql = "SELECT * FROM " + tablaSeleccionada;
 			}
-		} else
+		}else if( tablaSeleccionada.equals("usuario")||tablaSeleccionada.equals("casino")|| tablaSeleccionada.equals("apuestasdep")) {
+			sql = "SELECT * FROM " + tablaSeleccionada+" WHERE id_usuario="+id_usuario;
+		}else {
 			sql = "SELECT * FROM " + tablaSeleccionada;
+		}
 		try {
 			Statement stBusqueda= conexionBBDD.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);

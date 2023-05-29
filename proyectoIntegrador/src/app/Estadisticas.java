@@ -117,6 +117,7 @@ public class Estadisticas extends JFrame {
 
 }
 
+@SuppressWarnings("serial")
 class ResultSetModeloTabla extends AbstractTableModel {
 
 	private ResultSet rsRegistros;
